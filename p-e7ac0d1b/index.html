@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Трюфельная собака</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Marck+Script&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+  /* Намеренно одна светлая тема: легенда «Стардогс в Париже» запрещает тёмный и синий фон */
+  :root{
+    --milk:#FBF6EC; --sand:#EADCC1; --sand-2:#F3E9D6; --moss:#7C8552; --moss-2:#98A06A;
+    --bark:#4A3326; --bark-soft:#7A6150; --red:#C4443A; --warm:#E08A43; --cool:#D8C38F; --cold:#F1ECE2;
+    --display:"Oranienbaum","Times New Roman",serif;
+    --hand:"Marck Script","Segoe Script",cursive;
+    --body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+    color-scheme:light;
+  }
+  html,body{background:var(--milk);color:var(--bark)}
+  body{font-family:var(--body);font-size:15px;line-height:1.45;padding-inline:16px;padding-block:18px 32px}
+  .wrap{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  header{display:flex;flex-direction:column;gap:2px}
+  .eyebrow{font-family:var(--hand);color:var(--red);font-size:22px;line-height:1}
+  h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
+  .date{font-size:13px;color:var(--bark-soft);letter-spacing:.06em;text-transform:uppercase}
+  .how{margin:0;color:var(--bark-soft);font-size:14px}
+  .bubble{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:10px 14px;min-height:44px;display:flex;align-items:center;gap:10px;font-weight:500}
+  .bubble .fr{font-family:var(--hand);color:var(--red);font-size:20px;font-weight:400}
+  .forest{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:8px;background:var(--moss);border-radius:18px;aspect-ratio:1/1;max-width:100%;touch-action:manipulation}
+  .cell{appearance:none;border:0;border-radius:10px;cursor:pointer;background:var(--moss-2);position:relative;display:grid;place-items:center;font-size:18px;color:var(--bark);transition:background .25s,transform .12s;padding:0}
+  .cell::before{content:"";position:absolute;inset:18% 22%;border-radius:50% 50% 45% 45%;background:radial-gradient(circle at 35% 35%,#B5B780 0 30%,transparent 31%),radial-gradient(circle at 70% 60%,#8D955C 0 28%,transparent 29%),radial-gradient(circle at 40% 75%,#C9A45E 0 22%,transparent 23%);opacity:.9}
+  .cell:hover{transform:translateY(-1px)}
+  .cell:focus-visible{outline:3px solid var(--red);outline-offset:1px}
+  .cell[data-h]::before{display:none}
+  .cell[data-h="1"]{background:var(--red);color:#fff}
+  .cell[data-h="2"]{background:var(--warm);color:#fff}
+  .cell[data-h="3"]{background:var(--cool)}
+  .cell[data-h="4"]{background:var(--cold)}
+  .cell[data-h="0"]{background:var(--milk)}
+  .cell[data-h="0"].gold{background:#FFF1C9}
+  .cell:disabled{cursor:default}
+  .dog{position:absolute;width:15%;aspect-ratio:1;display:grid;place-items:center;font-size:30px;pointer-events:none;transition:left .45s cubic-bezier(.4,1.4,.6,1),top .45s cubic-bezier(.4,1.4,.6,1);left:42.5%;top:42.5%;filter:drop-shadow(0 2px 2px rgba(58,42,33,.35))}
+  .dog.sniff{animation:sniff .5s ease-in-out 1}
+  @keyframes sniff{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg) translateY(2px)}50%{transform:rotate(10deg)}75%{transform:rotate(-6deg) translateY(2px)}}
+  @media (prefers-reduced-motion:reduce){.dog{transition:none}.dog.sniff{animation:none}}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--bark-soft)}
+  .trail{font-size:20px;letter-spacing:2px;min-height:26px}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12.5px;color:var(--bark-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .result{display:flex;flex-direction:column;gap:12px}
+  .result img{width:100%;border-radius:16px;border:1.5px solid var(--sand)}
+  .hint-save{font-size:12.5px;color:var(--bark-soft);margin:-4px 0 0;text-align:center}
+  .share{background:var(--sand-2);border-radius:12px;padding:12px 14px;white-space:pre-wrap;font-size:14px;margin:0;font-family:var(--body)}
+  .btns{display:flex;flex-wrap:wrap;gap:8px}
+  button.act{font:600 15px var(--body);border-radius:999px;padding:12px 18px;cursor:pointer;border:1.5px solid var(--bark);background:var(--bark);color:var(--milk);flex:1 1 auto}
+  button.act.ghost{background:transparent;color:var(--bark)}
+  button.act:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+  .promo{border:2px dashed var(--red);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;background:#fff}
+  .promo b{font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:.06em;color:var(--red)}
+  .promo small{color:var(--bark-soft)}
+  .demo{font-size:12.5px;color:var(--bark-soft);border-top:1px solid var(--sand);padding-top:12px}
+  footer{font-size:12.5px;color:var(--bark-soft);text-align:center}
+  footer i{font-family:var(--hand);font-style:normal;color:var(--red);font-size:17px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Стардогс в Париже</span>
+    <h1>Трюфельная собака</h1>
+    <span class="date" id="date"></span>
+  </header>
+  <p class="how">Во Франции трюфель ищут собаки — по запаху. Сегодня в лесу спрятан один трюфель, для всех один и тот же. Нажимай на лес: собака понюхает и скажет, горячо или холодно. У тебя 8 нюхов.</p>
+
+  <div class="bubble" id="bubble" aria-live="polite"><span class="fr">Bonjour!</span><span>Куда пойдём нюхать?</span></div>
+
+  <div class="forest" id="forest" role="grid" aria-label="Лес, 6 на 6 участков">
+    <div class="dog" id="dog" aria-hidden="true">🐕</div>
+  </div>
+
+  <div class="row"><span class="trail" id="trail" aria-label="Ход игры"></span><span id="left">Нюхов: 8</span></div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--red)"></i>🔥 горячо — рядом</span>
+    <span><i class="sw" style="background:var(--warm)"></i>🌡 тепло</span>
+    <span><i class="sw" style="background:var(--cool)"></i>🍂 прохладно</span>
+    <span><i class="sw" style="background:var(--cold);border:1px solid var(--sand)"></i>❄️ холодно</span>
+  </div>
+
+  <section class="result" id="result" hidden>
+    <img id="cardImg" alt="Карточка результата">
+    <p class="hint-save">Карточку можно сохранить долгим нажатием и выложить в историю</p>
+    <pre class="share" id="shareText"></pre>
+    <div class="btns">
+      <button class="act" id="copyBtn" type="button">Скопировать и отправить другу</button>
+    </div>
+    <div class="promo">
+      <small>Подарок за найденный трюфель</small>
+      <b id="promoCode"></b>
+      <small>Покажи код на кассе Стардогс вместе с заказом трюфельного хот-дога или рулле</small>
+    </div>
+  </section>
+
+  <div class="demo">
+    <b>Прототип.</b> В настоящей игре — одна партия в день, а промокод настоящий. Здесь код демонстрационный, а кнопка ниже прячет трюфель заново, чтобы можно было играть сколько угодно.
+    <div class="btns" style="margin-top:10px"><button class="act ghost" id="againBtn" type="button">Спрятать трюфель заново (демо)</button></div>
+  </div>
+
+  <footer><i>Voilà</i> · трюфель в хот-доге, рулле и бургере — до 15 мая</footer>
+</div>
+
+<script>
+(function(){
+  var N=6, MAX=8;
+  var HEAT=[null,
+    {e:"🔥",fr:"Ouh là là!",t:"Совсем рядом! Нос дрожит"},
+    {e:"🌡",fr:"Tiens…",t:"Пахнет Перигором. Тепло"},
+    {e:"🍂",fr:"Bof.",t:"Прохладно. Тут в основном листья"},
+    {e:"❄️",fr:"Non, non.",t:"Холодно. Пахнет только осенью"}];
+  var CARDS=[
+    {max:1,name:"Легенда Перигора",line:"С первого нюха. Охотники за трюфелем пишут о тебе мемуары"},
+    {max:3,name:"Такса-гурман",line:"Нос как у сомелье — трюфель не успел спрятаться"},
+    {max:5,name:"Пудель с Монмартра",line:"Не спешишь, любуешься листвой. И всё равно нашёл(ла)"},
+    {max:8,name:"Бульдог-философ",line:"Долго думал(а), но дошёл(ла). Трюфель ищут терпением"}];
+  var LOST={name:"Сонный бассет",line:"Сегодня трюфель оказался хитрее. Завтра спрячем новый"};
+  var MONTHS=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+
+  var forest=document.getElementById("forest"), dog=document.getElementById("dog"), bubble=document.getElementById("bubble");
+  var trailEl=document.getElementById("trail"), leftEl=document.getElementById("left");
+  var now=new Date(), dayKey=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+  document.getElementById("date").textContent=now.getDate()+" "+MONTHS[now.getMonth()]+" · трюфель дня";
+
+  function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+  var state;
+  function newGame(seed){
+    var h=hash(seed);
+    state={target:h%(N*N),gold:(Math.floor(h/97)%6)===0,tries:[],done:false,found:false};
+    render();
+  }
+  var cells=[];
+  for(var i=0;i<N*N;i++){
+    var b=document.createElement("button");b.className="cell";b.type="button";
+    b.setAttribute("aria-label","Участок "+(Math.floor(i/N)+1)+"-"+(i%N+1));
+    (function(idx){b.addEventListener("click",function(){sniff(idx)})})(i);
+    forest.insertBefore(b,dog);cells.push(b);
+  }
+  function heat(idx){
+    var d=Math.max(Math.abs(Math.floor(idx/N)-Math.floor(state.target/N)),Math.abs(idx%N-state.target%N));
+    return d===0?0:Math.min(d,4);
+  }
+  function moveDog(idx){
+    dog.style.left=(idx%N)*(100/N)+(100/N-15)/2+"%";
+    dog.style.top=Math.floor(idx/N)*(100/N)+(100/N-15)/2+"%";
+    dog.classList.remove("sniff");void dog.offsetWidth;dog.classList.add("sniff");
+  }
+  function say(fr,t){bubble.innerHTML="";var a=document.createElement("span");a.className="fr";a.textContent=fr;var c=document.createElement("span");c.textContent=t;bubble.append(a,c)}
+  function sniff(idx){
+    if(state.done||state.tries.indexOf(idx)>=0)return;
+    state.tries.push(idx);moveDog(idx);
+    var h=heat(idx);
+    if(h===0){state.done=true;state.found=true;say("Voilà!",state.gold?"Золотой трюфель! Такой попадается раз в несколько дней":"Трюфель найден!")}
+    else if(state.tries.length>=MAX){state.done=true;say("Hélas…","Нюхи кончились. Трюфель был вот здесь")}
+    else say(HEAT[h].fr,HEAT[h].t);
+    render();save();
+    if(state.done)setTimeout(finish,500);
+  }
+  function trailString(){
+    return state.tries.map(function(i){var h=heat(i);return h===0?(state.gold?"🌟":"🟤"):HEAT[h].e}).join("");
+  }
+  function render(){
+    cells.forEach(function(c,i){
+      var tried=state.tries.indexOf(i)>=0, reveal=state.done&&i===state.target;
+      if(tried||reveal){var h=heat(i);c.dataset.h=h;c.textContent=h===0?(state.gold?"🌟":"🟤"):HEAT[h].e}
+      else{delete c.dataset.h;c.textContent=""}
+      c.classList.toggle("gold",state.gold&&reveal);
+      c.disabled=state.done;
+    });
+    trailEl.textContent=trailString();
+    leftEl.textContent="Нюхов: "+(MAX-state.tries.length);
+    if(!state.tries.length){dog.style.left="42.5%";dog.style.top="42.5%";say("Bonjour!","Куда пойдём нюхать?")}
+    document.getElementById("result").hidden=!state.done;
+  }
+  function card(){
+    if(!state.found)return LOST;
+    var n=state.tries.length;for(var i=0;i<CARDS.length;i++)if(n<=CARDS[i].max)return CARDS[i];
+    return CARDS[CARDS.length-1];
+  }
+  function word(n){var m=n%10,h=n%100;if(m===1&&h!==11)return "нюх";if(m>=2&&m<=4&&(h<12||h>14))return "нюха";return "нюхов"}
+  function finish(){
+    var c=card(), n=state.tries.length;
+    var head=state.found?("Трюфель найден за "+n+" "+word(n)+(state.gold?" — и он золотой!":"")):"Сегодня трюфель не нашёлся";
+    var text="Трюфельная собака · "+now.getDate()+" "+MONTHS[now.getMonth()]+"\n"+trailString()+"\n"+head+"\nЯ — "+c.name+". А ты кто?\n(здесь будет ссылка на игру)";
+    document.getElementById("shareText").textContent=text;
+    document.getElementById("promoCode").textContent=state.found?"ТРЮФЕЛЬ-"+(1000+hash(dayKey+n)%9000)+" · демо":"Завтра новый шанс";
+    drawCard(c,head);
+  }
+  function wrapText(ctx,t,x,y,w,lh){var words=t.split(" "),line="";for(var i=0;i<words.length;i++){var test=line+words[i]+" ";if(ctx.measureText(test).width>w&&line){ctx.fillText(line.trim(),x,y);line=words[i]+" ";y+=lh}else line=test}ctx.fillText(line.trim(),x,y);return y}
+  function drawCard(c,head){
+    var W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
+    x.fillStyle="#FBF6EC";x.fillRect(0,0,W,H);
+    x.fillStyle="#7C8552";x.beginPath();if(x.roundRect)x.roundRect(80,560,W-160,760,48);else x.rect(80,560,W-160,760);x.fill();
+    for(var k=0;k<60;k++){var hx=hash("leaf"+k);x.fillStyle=["#98A06A","#B5B780","#C9A45E","#E08A43"][hx%4];x.beginPath();x.ellipse(120+hx%840,600+(hx>>>8)%680,14+hx%18,9+hx%10,(hx%31)/10,0,7);x.fill()}
+    x.textAlign="center";
+    x.fillStyle="#C4443A";x.font="64px 'Marck Script', cursive";x.fillText("Стардогс в Париже",W/2,200);
+    x.fillStyle="#4A3326";x.font="104px Oranienbaum, serif";x.fillText("Трюфельная собака",W/2,320);
+    x.fillStyle="#7A6150";x.font="500 40px 'Golos Text', sans-serif";x.fillText(now.getDate()+" "+MONTHS[now.getMonth()]+" · трюфель дня",W/2,400);
+    x.font="190px serif";x.fillText(state.found?(state.gold?"🌟":"🟤"):"🍂",W/2,900);
+    x.font="150px serif";x.fillText("🐕",W/2,1150);
+    x.font="72px serif";x.fillText(trailString(),W/2,1260);
+    x.fillStyle="#4A3326";x.font="600 46px 'Golos Text', sans-serif";wrapText(x,head,W/2,1440,W-200,58);
+    x.fillStyle="#7A6150";x.font="500 38px 'Golos Text', sans-serif";x.fillText("Я —",W/2,1560);
+    x.fillStyle="#C4443A";x.font="104px Oranienbaum, serif";x.fillText(c.name,W/2,1670);
+    x.fillStyle="#4A3326";x.font="400 38px 'Golos Text', sans-serif";wrapText(x,c.line,W/2,1750,W-220,50);
+    x.fillStyle="#7A6150";x.font="500 34px 'Golos Text', sans-serif";x.fillText("А ты кто? Найди свой трюфель",W/2,1870);
+    document.getElementById("cardImg").src=cv.toDataURL("image/png");
+  }
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var t=document.getElementById("shareText").textContent, btn=this;
+    function ok(){btn.textContent="Скопировано — вставь в чат другу";setTimeout(function(){btn.textContent="Скопировать и отправить другу"},2500)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById("shareText"));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Текст выделен — скопируй его"}
+    try{navigator.clipboard.writeText(t).then(ok,fallback)}catch(e){fallback()}
+  });
+  document.getElementById("againBtn").addEventListener("click",function(){newGame("demo"+Math.random());try{localStorage.removeItem("td-"+dayKey)}catch(e){}});
+  function save(){try{localStorage.setItem("td-"+dayKey,JSON.stringify(state))}catch(e){}}
+  var saved=null;try{saved=JSON.parse(localStorage.getItem("td-"+dayKey))}catch(e){}
+  if(saved&&saved.tries){state=saved;render();if(state.done){if(state.tries.length)moveDog(state.tries[state.tries.length-1]);finish()}}
+  else newGame(dayKey);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(state.done)finish()});
+})();
+</script>
+</body>
+</html>
