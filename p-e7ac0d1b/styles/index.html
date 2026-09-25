@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Трюфельная собака — стили</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Unbounded:wght@700;900&family=Caveat:wght@500;700&family=Lora:ital@0;1&family=Golos+Text:wght@400;600&family=Rubik:wght@500;800&display=swap">
+<style>
+  [hidden]{display:none!important}
+  *,*::before,*::after{box-sizing:border-box}
+  :root{--ground:#F6F1E7;--ink:#2B2320;--muted:#6E625A;color-scheme:light}
+  html,body{margin:0;background:var(--ground);color:var(--ink);font-family:"Golos Text",system-ui,sans-serif}
+  body{padding-inline:16px;padding-block:20px 40px}
+  .top{max-width:1100px;margin:0 auto 18px}
+  .top h1{font:600 24px/1.2 "Golos Text",sans-serif;margin:0 0 6px}
+  .top p{margin:0;color:var(--muted);font-size:14.5px;max-width:720px}
+  .grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+  .opt{display:flex;flex-direction:column;gap:10px}
+  .opt h2{margin:0;font:600 18px "Golos Text",sans-serif}
+  .opt .why{margin:0;font-size:13.5px;color:var(--muted)}
+  .opt ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--muted)}
+  .phone{border-radius:28px;overflow:hidden;box-shadow:0 10px 30px rgba(43,35,32,.18);aspect-ratio:9/17;max-width:100%;position:relative;display:flex;flex-direction:column}
+  .board{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+  .board i{aspect-ratio:1;border-radius:8px;display:grid;place-items:center;font-style:normal;font-size:15px}
+  /* ---------- A: постер в движении ---------- */
+  .A{background:#FFC61A;padding:12px}
+  .A .inner{flex:1;background:#FBF3E4;border-radius:18px;padding:14px 14px 0;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+  .A .flag{display:flex;width:60px;height:10px;margin:0 auto}.A .flag b{flex:1}
+  .A .logo{font-family:Lobster,cursive;font-size:34px;line-height:.95;text-align:center;color:#7A1F22;transform:rotate(-6deg);margin:4px 0 2px}
+  .A .logo span{color:#D8262D;display:block;font-size:40px}
+  .A .hook{font:900 17px/1.15 Unbounded,sans-serif;text-transform:uppercase;color:#1E1A18;text-align:center}
+  .A .sub{font-size:12.5px;text-align:center;color:#5B4B43}
+  .A .board{background:#D8262D;padding:8px;border-radius:14px;margin-top:auto;margin-bottom:12px}
+  .A .board i{background:#FBF3E4;border:1.5px solid #7A1F22}
+  .A .board i.h{background:#FFC61A}.A .board i.c{background:#fff}
+  .A .sketch{position:absolute;inset:auto 0 44% 0;height:34%;opacity:.35;pointer-events:none}
+  .A .bar{font:800 14px Rubik,sans-serif;text-align:center;color:#1E1A18;padding:8px 0 2px}
+  /* ---------- B: скетчбук ---------- */
+  .B{background:#F7EFE0;background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(122,31,34,.08) 23px 24px);padding:18px 16px;gap:10px}
+  .B .date{font:500 18px Caveat,cursive;color:#7A1F22}
+  .B .logo{font:700 38px/0.95 Caveat,cursive;color:#2B2320}
+  .B .logo em{font-style:normal;color:#D8262D}
+  .B .hook{font:italic 15.5px/1.35 Lora,serif;color:#3B302B}
+  .B .board{margin-top:auto;padding:10px;border:1.5px dashed #7A1F22;border-radius:6px;background:rgba(255,255,255,.4)}
+  .B .board i{border:1.5px solid #2B2320;border-radius:50% 45% 50% 40%;background:transparent;font-size:13px}
+  .B .board i.h{background:rgba(216,38,45,.18)}.B .board i.c{background:rgba(255,198,26,.25)}
+  .B .note{font:500 17px Caveat,cursive;color:#7A1F22;transform:rotate(-2deg)}
+  .B .stamp{position:absolute;right:16px;top:70px;width:74px;height:74px;border:2px solid #D8262D;border-radius:50%;display:grid;place-items:center;text-align:center;font:700 11px/1.1 Rubik,sans-serif;color:#D8262D;transform:rotate(12deg);opacity:.85}
+  /* ---------- C: стикерпак ---------- */
+  .C{background:#FFE14D;padding:16px;gap:10px;background-image:radial-gradient(#F2C300 1.5px,transparent 1.6px);background-size:14px 14px}
+  .C .logo{font:900 26px/1 Unbounded,sans-serif;color:#1E1A18;text-transform:uppercase;letter-spacing:-.01em}
+  .C .logo span{display:inline-block;background:#D8262D;color:#fff;padding:2px 8px;border-radius:10px;transform:rotate(-3deg);border:3px solid #1E1A18;margin-top:4px}
+  .C .bubble{background:#fff;border:3px solid #1E1A18;border-radius:18px 18px 18px 4px;padding:8px 12px;font:800 15px/1.25 Rubik,sans-serif;box-shadow:4px 4px 0 #1E1A18}
+  .C .dog{font-size:52px;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 3px 0 #1E1A18);align-self:flex-start;transform:rotate(-8deg)}
+  .C .board{margin-top:auto;background:#1E1A18;padding:7px;border-radius:16px}
+  .C .board i{background:#fff;border-radius:10px;font-size:15px}
+  .C .board i.h{background:#D8262D}.C .board i.c{background:#FFE14D}
+  .C .tag{position:absolute;right:14px;top:18px;background:#fff;border:3px solid #1E1A18;border-radius:999px;padding:4px 10px;font:800 12px Rubik,sans-serif;transform:rotate(8deg);box-shadow:3px 3px 0 #1E1A18}
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>Трюфельная собака: три стиля на выбор</h1>
+    <p>Это эскизы, а не финальный дизайн: экран игры в каждом стиле. Собака пока эмодзи — в любом варианте её нарисуют. Смотри на цвет, шрифты и настроение.</p>
+  </div>
+  <div class="grid">
+
+    <section class="opt">
+      <h2>А. «Постер ожил»</h2>
+      <div class="phone A">
+        <div class="inner">
+          <svg class="sketch" viewBox="0 0 300 120" fill="none" stroke="#7A1F22" stroke-width="1.2" aria-hidden="true"><path d="M40 120 L60 20 L80 120 M47 85 H73 M52 60 H68 M60 20 V8"/><path d="M110 120 V60 H170 V120 M110 60 L120 40 H160 L170 60 M125 120 V85 Q140 70 155 85 V120"/><path d="M210 120 V70 Q245 45 280 70 V120 M225 120 V92 Q245 78 265 92 V120"/></svg>
+          <div class="flag"><b style="background:#2B3E8F"></b><b style="background:#fff"></b><b style="background:#D8262D"></b></div>
+          <div class="logo">Стардогс<span>в Париже</span></div>
+          <div class="hook">Трюфель дороже золота.<br>Ищут его собаки.</div>
+          <div class="sub">Сегодня собака — ты. 8 нюхов, го 🐕</div>
+          <div class="board"><i></i><i></i><i class="c">🍂</i><i></i><i></i><i></i><i class="h">🔥</i><i></i><i></i><i></i><i></i><i></i><i>🐕</i><i></i><i class="c">🌡</i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="bar">Stardogs · est. 1993</div>
+      </div>
+      <p class="why">Прямое продолжение плаката: жёлтая рамка, красный, рукописный логотип, Париж тонкой линией. Гость сканирует QR — и попадает в тот же мир.</p>
+      <ul><li>Плюс: узнаётся как Стардогс с первого взгляда</li><li>Минус: для подростков смотрится как реклама, а не как игра</li></ul>
+    </section>
+
+    <section class="opt">
+      <h2>Б. «Скетчбук путешественника»</h2>
+      <div class="phone B">
+        <div class="date">25 сентября · трюфель дня</div>
+        <div class="logo">Стардогс <em>в Париже</em></div>
+        <div class="hook">Во Франции трюфель ищут собаки. Сегодня эта собака — ты. Изи? Проверим.</div>
+        <div class="stamp">ТРЮФЕЛЬ<br>ДНЯ<br>★</div>
+        <div class="note">↓ жми на лес, я понюхаю</div>
+        <div class="board"><i></i><i></i><i class="c">🍂</i><i></i><i></i><i></i><i class="h">🔥</i><i></i><i></i><i></i><i></i><i></i><i>🐕</i><i></i><i class="c">🌡</i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <p class="why">Та же линейная графика, что и Париж на плакате, но вся игра — как страница дневника: бумага, штампы, рисунки от руки. Цвета плаката остаются акцентами.</p>
+      <ul><li>Плюс: самый «стильный» и тёплый, ближе всего к легенде о «доступной роскоши»</li><li>Минус: спокойный — азарт придётся делать текстом и анимацией</li></ul>
+    </section>
+
+    <section class="opt">
+      <h2>В. «Стикерпак»</h2>
+      <div class="phone C">
+        <span class="tag">8 нюхов</span>
+        <div class="logo">Трюфельная<br><span>собака</span></div>
+        <div class="dog" aria-hidden="true">🐕</div>
+        <div class="bubble">Трюфель дня спрятан тут. Найдёшь быстрее друзей — флексишь весь день 😎</div>
+        <div class="board"><i></i><i></i><i class="c">🍂</i><i></i><i></i><i></i><i class="h">🔥</i><i></i><i></i><i></i><i></i><i></i><i>🐕</i><i></i><i class="c">🌡</i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <p class="why">Язык стикеров и мемов: толстая обводка, жёлтый и красный Стардогс, персонаж — главный герой. Самый «игровой» и молодёжный.</p>
+      <ul><li>Плюс: больше всего похоже на то, что подростки шерят</li><li>Минус: дальше всего от плаката и от спокойного тона легенды</li></ul>
+    </section>
+
+  </div>
+</body>
+</html>
