@@ -22,8 +22,7 @@
   .logo{margin:0;font:900 30px/1 Unbounded,sans-serif;text-transform:uppercase;letter-spacing:-.01em}
   .logo span{display:inline-block;background:var(--red);color:#fff;padding:3px 12px 5px;border-radius:12px;transform:rotate(-3deg);border:3px solid var(--ink);margin-top:6px;box-shadow:4px 4px 0 var(--ink)}
   .hero{display:flex;align-items:flex-end;gap:10px}
-  .dogbig{font-size:64px;line-height:1;flex:none;transform:rotate(-8deg);filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 3px 0 var(--ink))}
-  .dogbig.sniff{animation:sniff .5s ease-in-out 1}
+  .dogbig{width:124px;flex:none;margin-bottom:-4px;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 3px 0 var(--ink))}
   .bubble{flex:1;background:var(--paper);border:3px solid var(--ink);border-radius:18px 18px 18px 4px;padding:10px 14px;font:800 16px/1.3 Rubik,sans-serif;box-shadow:4px 4px 0 var(--ink)}
   .bubble small{display:block;font:500 14px/1.35 Rubik,sans-serif;color:var(--muted);margin-top:4px}
   .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -40,16 +39,13 @@
   .cell[data-h="4"]{background:#CFE8FF}
   .cell[data-h="0"]{background:var(--truffle)}
   .cell[data-h="0"].gold{background:#FFD23F}
-  .pin{position:absolute;left:0;top:0;display:grid;place-items:center;font-size:24px;pointer-events:none;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+  .pin{position:absolute;left:0;top:0;pointer-events:none;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
   .fx{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
   .p{position:absolute;left:0;top:0;font-size:22px;line-height:1;will-change:transform,opacity}
   .p.dot{width:9px;height:9px;border-radius:50%}
   .p.conf{width:10px;height:14px;border-radius:2px}
-  .dogbig{animation:wag 2.6s ease-in-out infinite}
-  @keyframes wag{0%,100%{rotate:0deg}50%{rotate:5deg}}
   .dogbig.jump{animation:jump .7s cubic-bezier(.3,1.6,.5,1) 1}
   @keyframes jump{0%{translate:0 0}40%{translate:0 -38px;rotate:-14deg}70%{translate:0 0;rotate:8deg}100%{translate:0 0;rotate:0deg}}
-  .dogbig.sleep{animation:none;rotate:-24deg;translate:0 10px;transition:rotate .6s,translate .6s}
   .cell.flip{animation:flip .4s cubic-bezier(.3,1.5,.5,1) 1}
   @keyframes flip{0%{transform:rotateY(90deg) scale(.8)}100%{transform:rotateY(0) scale(1)}}
   .cell.invite{animation:bob .5s ease-out 1 both}
@@ -61,7 +57,7 @@
   #result.show{animation:rise .6s cubic-bezier(.2,1.3,.4,1) 1}
   @keyframes rise{0%{transform:translateY(60px);opacity:0}100%{transform:none;opacity:1}}
   @keyframes sniff{0%,100%{rotate:0deg}25%{rotate:-14deg}50%{rotate:10deg}75%{rotate:-6deg}}
-  @media (prefers-reduced-motion:reduce){.dogbig,.dogbig.sniff,.dogbig.jump,.cell.flip,.cell.invite,.bubble.pop,.tag.pop,#result.show{animation:none}}
+  @media (prefers-reduced-motion:reduce){.dogbig.jump,.cell.flip,.cell.invite,.bubble.pop,.tag.pop,#result.show{animation:none}}
   .trail{font-size:22px;letter-spacing:3px;min-height:28px;text-align:center}
   .card{background:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:5px 5px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:12px}
   .card img{width:100%;border-radius:12px;border:2px solid var(--ink);display:block}
@@ -74,6 +70,51 @@
   .test{font-size:13px;color:var(--muted);text-align:center}
   .test button{font:700 13px Rubik,sans-serif;background:none;border:0;color:var(--ink);text-decoration:underline;cursor:pointer;padding:6px}
   footer{text-align:center;font:700 13px Rubik,sans-serif;margin-top:4px}
+  /* Персонаж: части крутятся вокруг своих «суставов» в координатах рисунка */
+  .dogsvg{display:block;overflow:visible}
+  .dogsvg *{transform-box:view-box}
+  .dogsvg .all{transform-origin:100px 148px}
+  .dogsvg .tail{transform-origin:64px 82px;animation:dwag .9s ease-in-out infinite alternate}
+  .dogsvg .head{transform-origin:132px 86px}
+  .dogsvg .ear{transform-origin:141px 46px}
+  .dogsvg .nose{transform-origin:194px 66px}
+  .dogsvg .eyeo{transform-origin:161px 55px;animation:dblink 4.2s infinite}
+  .dogsvg .lbf{transform-origin:75px 100px}.dogsvg .lff{transform-origin:127px 100px}
+  .dogsvg .lbn{transform-origin:64px 104px}.dogsvg .lfn{transform-origin:137px 104px}
+  @keyframes dwag{from{transform:rotate(-16deg)}to{transform:rotate(14deg)}}
+  @keyframes dblink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+  @keyframes dbreath{0%,100%{transform:scale(1,1)}50%{transform:scale(1.015,.985)}}
+  @keyframes dsniff{0%,100%{transform:rotate(0)}25%{transform:rotate(10deg)}50%{transform:rotate(3deg)}75%{transform:rotate(10deg)}}
+  @keyframes dtwitch{0%,100%{transform:scale(1)}50%{transform:scale(1.25,.85)}}
+  @keyframes drun{from{transform:rotate(30deg)}to{transform:rotate(-30deg)}}
+  @keyframes ddig{from{transform:rotate(-55deg)}to{transform:rotate(15deg)}}
+  @keyframes dear{from{transform:rotate(-6deg)}to{transform:rotate(14deg)}}
+  @keyframes dhop{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px) rotate(-4deg)}}
+  @keyframes dz{0%{transform:translate(0,6px);opacity:0}30%{opacity:1}100%{transform:translate(8px,-14px);opacity:0}}
+  .dogsvg.idle .all{animation:dbreath 2.2s ease-in-out infinite}
+  .dogsvg.sniff .head{animation:dsniff .5s ease-in-out infinite}
+  .dogsvg.sniff .nose{animation:dtwitch .18s ease-in-out infinite}
+  .dogsvg.sniff .tail,.dogsvg.run .tail,.dogsvg.dig .tail{animation-duration:.25s}
+  .dogsvg.run .lbn,.dogsvg.run .lff{animation:drun .2s ease-in-out infinite alternate}
+  .dogsvg.run .lbf,.dogsvg.run .lfn{animation:drun .2s ease-in-out infinite alternate-reverse}
+  .dogsvg.run .ear{animation:dear .2s ease-in-out infinite alternate}
+  .dogsvg.dig .all{transform:rotate(14deg)}
+  .dogsvg.dig .head{transform:rotate(16deg)}
+  .dogsvg.dig .lfn{animation:ddig .13s ease-in-out infinite alternate}
+  .dogsvg.dig .lff{animation:ddig .13s ease-in-out infinite alternate-reverse}
+  .dogsvg.happy .all{animation:dhop .45s ease-in-out infinite}
+  .dogsvg.happy .tail{animation-duration:.14s}
+  .dogsvg.happy .head{transform:rotate(-8deg)}
+  .dogsvg.happy .ear{animation:dear .25s ease-in-out infinite alternate}
+  .dogsvg.happy .tongue{display:inline}
+  .dogsvg.sleep .all{transform:translateY(8px)}
+  .dogsvg.sleep .head{transform:rotate(20deg)}
+  .dogsvg.sleep .tail{animation:none;transform:rotate(18deg)}
+  .dogsvg.sleep .eyeo{display:none}
+  .dogsvg.sleep .eyec,.dogsvg.sleep .zz{display:inline}
+  .dogsvg.sleep .z1{animation:dz 2s ease-in-out infinite}
+  .dogsvg.sleep .z2{animation:dz 2s ease-in-out 1s infinite}
+  @media (prefers-reduced-motion:reduce){.dogsvg *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -84,7 +125,7 @@
   <h1 class="logo">Трюфельная<br><span>собака</span></h1>
 
   <div class="hero">
-    <div class="dogbig" id="dogbig" aria-hidden="true">🐕</div>
+    <div class="dogbig" id="dogbig" aria-hidden="true"></div>
     <div class="bubble" id="bubble" aria-live="polite"></div>
   </div>
 
@@ -93,7 +134,7 @@
   </div>
 
   <div class="board" id="board" role="grid" aria-label="Поле 5 на 5">
-    <div class="pin" id="pin" aria-hidden="true" hidden>🐕</div>
+    <div class="pin" id="pin" aria-hidden="true" hidden></div>
   </div>
 
   <div class="trail" id="trail" aria-label="Ход игры"></div>
@@ -115,6 +156,38 @@
 
 <script>
 (function(){
+  // Персонаж: трюфельная собака в берете и шарфе. Смотрит вправо. Позы — классом на <svg>: idle, sniff, run, dig, happy, sleep
+  function dogSVG(pose){
+    var happy=pose==="happy",sleep=pose==="sleep";
+    return '<svg class="dogsvg '+pose+'" viewBox="0 0 210 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+
+    '<g class="all" stroke="#1E1A18" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">'+
+      '<g class="leg lbf"><rect x="68" y="98" width="15" height="46" rx="7.5" fill="#B97838"/></g>'+
+      '<g class="leg lff"><rect x="120" y="98" width="15" height="46" rx="7.5" fill="#B97838"/></g>'+
+      '<g class="tail"><path d="M60 86 C42 80 30 60 37 42 C40 35 49 37 48 45 C46 58 53 70 68 76 Z" fill="#E3A35F"/></g>'+
+      '<ellipse cx="99" cy="95" rx="50" ry="28" fill="#E3A35F"/>'+
+      '<path d="M74 111 Q100 124 128 111" fill="none" stroke-width="3.5" opacity=".35"/>'+
+      '<g class="leg lbn"><rect x="56" y="102" width="17" height="46" rx="8.5" fill="#E3A35F"/></g>'+
+      '<g class="leg lfn"><rect x="129" y="102" width="17" height="46" rx="8.5" fill="#E3A35F"/></g>'+
+      '<g class="head">'+
+        '<path d="M114 80 Q132 96 150 86 L155 99 Q134 113 110 93 Z" fill="#2B3E8F"/>'+
+        '<path d="M121 97 L112 120 L125 117 L130 101 Z" fill="#2B3E8F"/>'+
+        '<g transform="translate(152 66) scale(1.16) translate(-152 -66)">'+
+        '<ellipse cx="152" cy="62" rx="27" ry="25" fill="#E3A35F"/>'+
+        '<ellipse cx="177" cy="72" rx="20" ry="13.5" fill="#FFF3DC"/>'+
+        '<path class="tongue" display="'+(happy?"inline":"none")+'" d="M171 81 Q172 97 181 95 Q186 92 182 81 Z" fill="#F07A93"/>'+
+        '<path d="M166 80 Q177 87 190 79" fill="none" stroke-width="4"/>'+
+        '<ellipse class="nose" cx="194" cy="66" rx="7.5" ry="6" fill="#1E1A18"/>'+
+        '<g class="eyeo" display="'+(sleep?"none":"inline")+'"><ellipse cx="161" cy="55" rx="4.8" ry="5.6" fill="#1E1A18" stroke="none"/><circle cx="162.8" cy="53" r="1.7" fill="#fff" stroke="none"/></g>'+
+        '<path class="eyec" display="'+(sleep?"inline":"none")+'" d="M155 56 Q161 61 167 56" fill="none" stroke-width="4"/>'+
+        '<ellipse cx="170" cy="63" rx="5" ry="3" fill="#F07A93" stroke="none" opacity=".55"/>'+
+        '<g class="ear"><path d="M137 44 Q124 54 127 78 Q131 87 140 79 Q148 62 147 46 Z" fill="#9A5F2A"/></g>'+
+        '<g class="beret"><path d="M128 43 Q148 20 178 37 Q170 47 148 47 Q134 47 128 43 Z" fill="#D8262D"/><path d="M152 29 L155 21" stroke-width="5"/></g>'+
+      '</g>'+
+      '</g>'+
+      '<g class="zz" display="'+(sleep?"inline":"none")+'" stroke="none" fill="#1E1A18" font-family="Rubik,sans-serif" font-weight="800"><text class="z1" x="182" y="36" font-size="20">z</text><text class="z2" x="194" y="20" font-size="15">z</text></g>'+
+    '</g></svg>';
+  }
+  function dogPose(el,pose){var s=el.querySelector("svg");if(s)s.setAttribute("class","dogsvg "+pose)}
   // Яндекс Метрика: вписать номер счётчика — начнут считаться цели start / found / lost / share / vk
   var METRIKA_ID=null;
 
@@ -132,6 +205,7 @@
   var LOST={name:"Сонный бассет",e:"😴",line:"Сегодня трюфель затащил. Завтра реванш"};
   var MONTHS=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
 
+  document.getElementById("dogbig").innerHTML=dogSVG("idle");document.getElementById("pin").innerHTML=dogSVG("idle");
   var qs=new URLSearchParams(location.search), TEST=qs.get("test")==="1";
   var board=document.getElementById("board"), pin=document.getElementById("pin"), bubble=document.getElementById("bubble");
   var now=new Date(), dayKey=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
@@ -182,21 +256,22 @@
     }
   }
   function shake(el,amp){if(RM)return;el.animate([{transform:"translate(0,0)"},{transform:"translate("+amp+"px,-"+amp/2+"px)"},{transform:"translate(-"+amp+"px,"+amp/2+"px)"},{transform:"translate("+amp/2+"px,0)"},{transform:"translate(0,0)"}],{duration:320,iterations:1})}
-  function spot(idx){var c=cells[idx],w=c.offsetWidth*.62;return {w:w,x:c.offsetLeft+c.offsetWidth-w*.75,y:c.offsetTop-w*.35}}
-  function placePin(idx){var t=spot(idx);pin.hidden=false;pin.style.width=pin.style.height=t.w+"px";pin.style.fontSize=t.w*.8+"px";pin.style.transform="translate("+t.x+"px,"+t.y+"px)";pinAt=t}
+  function spot(idx){var c=cells[idx],w=c.offsetWidth*1.2,h=w*160/210;return {w:w,h:h,x:Math.min(c.offsetLeft+c.offsetWidth*.25,board.clientWidth-w-4),y:c.offsetTop-h*.5}}
+  function placePin(idx){var t=spot(idx);pin.hidden=false;pin.style.width=t.w+"px";pin.style.height=t.h+"px";pin.style.transform="translate("+t.x+"px,"+t.y+"px)";pinAt=t}
   // Собака прыгает дугой к клетке и роет
   function hop(idx,cb){
     var fired=false,done=function(){if(!fired){fired=true;cb()}};setTimeout(done,1600);
-    var t=spot(idx);pin.hidden=false;pin.style.width=pin.style.height=t.w+"px";pin.style.fontSize=t.w*.8+"px";
-    var f=pinAt||{x:board.offsetWidth/2-t.w/2,y:-t.w,w:t.w},flip=t.x>f.x?" scaleX(-1)":"";
+    var t=spot(idx);pin.hidden=false;pin.style.width=t.w+"px";pin.style.height=t.h+"px";
+    var f=pinAt||{x:board.offsetWidth/2-t.w/2,y:-t.w,w:t.w},flip=t.x<f.x-1?" scaleX(-1)":"";
     var tr=function(x,y,extra){return "translate("+x+"px,"+y+"px)"+flip+(extra||"")};
     pinAt=t;
     if(RM){pin.style.transform=tr(t.x,t.y);done();return}
+    dogPose(pin,"run");
     var lift=Math.max(40,Math.hypot(t.x-f.x,t.y-f.y)*.35);
     pin.animate([{transform:tr(f.x,f.y)},{transform:tr((f.x+t.x)/2,Math.min(f.y,t.y)-lift," rotate(-12deg)"),offset:.5},{transform:tr(t.x,t.y," scale(1.15,.85)"),offset:.85},{transform:tr(t.x,t.y)}],{duration:520,easing:"ease-in-out",fill:"forwards"}).onfinish=function(){
       if(fired)return;pin.style.transform=tr(t.x,t.y);
-      burst(cells[idx],null,12,55,"dot",["#6B4A2F","#8A6440","#4A3326"]);
-      pin.animate([{transform:tr(t.x,t.y)},{transform:tr(t.x,t.y+6," rotate(-10deg)")},{transform:tr(t.x,t.y," rotate(8deg)")},{transform:tr(t.x,t.y+6," rotate(-8deg)")},{transform:tr(t.x,t.y)}],{duration:380}).onfinish=done;
+      dogPose(pin,"dig");burst(cells[idx],null,12,55,"dot",["#6B4A2F","#8A6440","#4A3326"]);
+      pin.animate([{transform:tr(t.x,t.y)},{transform:tr(t.x,t.y+6," rotate(-10deg)")},{transform:tr(t.x,t.y," rotate(8deg)")},{transform:tr(t.x,t.y+6," rotate(-8deg)")},{transform:tr(t.x,t.y)}],{duration:520}).onfinish=done;
     };
   }
   function sniff(idx){
@@ -206,22 +281,23 @@
     var h=heat(idx),big=document.getElementById("dogbig");
     if(h===0){state.done=true;state.found=true}else if(state.tries.length>=MAX)state.done=true;
     save();
-    say("*нюх-нюх*","");retrig(big,"sniff");
+    say("*нюх-нюх*","");dogPose(big,"sniff");
     hop(idx,function(){
       render();retrig(cells[idx],"flip");retrig(document.getElementById("tag"),"pop");retrig(bubble,"pop");
       if(h===0){
         goal("found");say(state.gold?"ЗОЛОТОЙ ТРЮФЕЛЬ 🌟":"ВУАЛЯ! Трюфель твой 🟤",state.gold?"Такой выпадает раз в несколько дней. Легенда":"Нашёл(ла) за "+state.tries.length+" "+word(state.tries.length));
-        big.classList.remove("sniff");retrig(big,"jump");buzz([60,40,120]);
+        dogPose(big,"happy");dogPose(pin,"happy");retrig(big,"jump");buzz([60,40,120]);
         burst(cells[idx],state.gold?["🌟","✨","🟤"]:["🟤","✨","🥐","🎉"],28,140);
         burst(cells[idx],null,40,170,"conf",["#D8262D","#FFE14D","#1E1A18","#fff","#2B3E8F"]);
         rain(null,50,"conf",["#D8262D","#FFE14D","#1E1A18","#2B3E8F"]);
       }else{
         say(state.done?"Нюхи всё 😵":HEAT[h].t,state.done?"Трюфель был вот тут. Завтра спрячем новый":HEAT[h].s);
+        dogPose(pin,h<=2?"sniff":"idle");dogPose(big,h===1?"happy":h===2?"sniff":"idle");
         if(h===1){shake(board,7);burst(cells[idx],["🔥","✨","🔥"],14,90);buzz([40,30,40]);retrig(big,"jump")}
         else if(h===2){burst(cells[idx],["✨","🌡"],8,60);buzz(20)}
         else if(h===3)rain(["🍂","🍁"],10);
         else{rain(["❄️"],14);shake(board,3)}
-        if(state.done){goal("lost");setTimeout(function(){big.classList.remove("jump","sniff");big.classList.add("sleep");retrig(cells[state.target],"flip")},500)}
+        if(state.done){goal("lost");setTimeout(function(){dogPose(big,"sleep");dogPose(pin,"sleep");retrig(cells[state.target],"flip")},500)}
       }
       busy=false;
       if(state.done)setTimeout(finish,h===0?1100:900);
@@ -236,7 +312,7 @@
     var left=MAX-state.tries.length;
     document.getElementById("tag").textContent=state.done?(state.found?"найден!":"0 нюхов"):left+" "+word(left);
     document.getElementById("trail").textContent=trail();
-    if(!state.tries.length){pin.hidden=true;pinAt=null;document.getElementById("dogbig").classList.remove("sleep","jump","sniff");say("Во Франции трюфель ищут собаки. Сегодня собака — ты 🐕","Один трюфель на всех, 6 нюхов. Найдёшь быстрее друзей — флексишь весь день 😎")}
+    if(!state.tries.length){pin.hidden=true;pinAt=null;dogPose(document.getElementById("dogbig"),"idle");dogPose(pin,"idle");say("Во Франции трюфель ищут собаки. Сегодня собака — ты 🐕","Один трюфель на всех, 6 нюхов. Найдёшь быстрее друзей — флексишь весь день 😎")}
     document.getElementById("result").hidden=!state.done;
   }
   function card(){if(!state.found)return LOST;var n=state.tries.length;for(var i=0;i<CARDS.length;i++)if(n<=CARDS[i].max)return CARDS[i];return CARDS[CARDS.length-1]}
@@ -250,12 +326,6 @@
   }
   function rr(x,X,Y,W,H,R){x.beginPath();if(x.roundRect)x.roundRect(X,Y,W,H,R);else x.rect(X,Y,W,H)}
   function wrap(x,t,X,Y,w,lh){var ws=t.split(" "),l="";for(var i=0;i<ws.length;i++){var s=l+ws[i]+" ";if(x.measureText(s).width>w&&l){x.fillText(l.trim(),X,Y);l=ws[i]+" ";Y+=lh}else l=s}x.fillText(l.trim(),X,Y);return Y}
-  function sticker(x,ch,X,Y,size,rot){
-    x.save();x.translate(X,Y);x.rotate(rot);x.font=size+"px serif";x.textAlign="center";x.textBaseline="middle";
-    x.fillStyle="#1E1A18";x.fillText(ch,10,10);
-    x.fillStyle="#fff";for(var a=0;a<16;a++){x.fillText(ch,Math.cos(a/16*6.283)*10,Math.sin(a/16*6.283)*10)}
-    x.fillText(ch,0,0);x.restore();
-  }
   function drawCard(){
     var c=card(),W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
     x.fillStyle="#FFE14D";x.fillRect(0,0,W,H);
@@ -265,14 +335,17 @@
     x.font="900 96px Unbounded, sans-serif";var pw=x.measureText("СОБАКА").width+72;x.save();x.translate(90,310);x.rotate(-.05);rr(x,8,8,pw,140,30);x.fillStyle="#1E1A18";x.fill();rr(x,0,0,pw,140,30);x.fillStyle="#D8262D";x.fill();x.lineWidth=8;x.strokeStyle="#1E1A18";x.stroke();
     x.fillStyle="#fff";x.font="900 96px Unbounded, sans-serif";x.fillText("СОБАКА",36,108);x.restore();
     rr(x,106,586,868,1060,48);x.fillStyle="#1E1A18";x.fill();rr(x,90,570,868,1060,48);x.fillStyle="#fff";x.fill();x.lineWidth=8;x.stroke();
-    sticker(x,state.found?(state.gold?"🌟":"🐕"):"😴",W/2-20,770,190,-.12);
+    if(state.gold){x.font="90px serif";x.textAlign="center";x.fillText("🌟",250,680);x.fillText("🌟",830,720)}
     x.textAlign="center";x.font="72px serif";x.fillStyle="#1E1A18";x.fillText(trail(),W/2-8,970);
     x.font="700 44px Rubik, sans-serif";x.fillStyle="#5B4B43";wrap(x,head(),W/2-8,1060,760,56);
     x.font="800 40px Rubik, sans-serif";x.fillStyle="#1E1A18";x.fillText("Я —",W/2-8,1180);
     var fs=72;do{x.font="900 "+fs+"px Unbounded, sans-serif";fs-=2}while(x.measureText(c.name).width>760&&fs>30);x.fillStyle="#D8262D";x.fillText(c.name,W/2-8,1270);x.font="80px serif";x.fillText(c.e,W/2-8,1360);
     x.font="500 40px Rubik, sans-serif";x.fillStyle="#1E1A18";wrap(x,c.line,W/2-8,1460,740,52);
     x.save();x.translate(W/2,1760);x.rotate(.04);rr(x,-370,-60,740,120,60);x.fillStyle="#1E1A18";x.fill();x.fillStyle="#fff";x.font="800 44px Rubik, sans-serif";x.textBaseline="middle";x.fillText("А ты кто? Найди свой трюфель",0,2);x.restore();
-    document.getElementById("cardImg").src=cv.toDataURL("image/png");
+    var img=document.getElementById("cardImg"),im=new Image();
+    im.onload=function(){x.drawImage(im,W/2-215,600,430,328);img.src=cv.toDataURL("image/png")};
+    im.onerror=function(){img.src=cv.toDataURL("image/png")};
+    im.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(dogSVG(state.found?"happy":"sleep"));
   }
   document.getElementById("shareBtn").addEventListener("click",function(){
     var btn=this,t=shareText(),u=shareUrl();goal("share");
@@ -284,7 +357,7 @@
   document.getElementById("againBtn").addEventListener("click",function(){try{localStorage.removeItem("td-"+dayKey)}catch(e){}newGame("test"+Math.random())});
   function save(){if(TEST)return;try{localStorage.setItem("td-"+dayKey,JSON.stringify(state))}catch(e){}}
   var saved=null;if(!TEST){try{saved=JSON.parse(localStorage.getItem("td-"+dayKey))}catch(e){}}
-  if(saved&&saved.tries){state=saved;render();if(state.tries.length&&!state.done){placePin(state.tries[state.tries.length-1]);say("С возвращением 🐕","Нюхай дальше — трюфель ещё тут")}if(state.done){say(state.found?"Сегодняшний трюфель уже твой 🟤":"Сегодня уже нюхали 😴","Возвращайся завтра — спрячем новый");if(state.tries.length)placePin(state.tries[state.tries.length-1]);if(!state.found)document.getElementById("dogbig").classList.add("sleep");finish()}}
+  if(saved&&saved.tries){state=saved;render();if(state.tries.length&&!state.done){placePin(state.tries[state.tries.length-1]);say("С возвращением 🐕","Нюхай дальше — трюфель ещё тут")}if(state.done){say(state.found?"Сегодняшний трюфель уже твой 🟤":"Сегодня уже нюхали 😴","Возвращайся завтра — спрячем новый");if(state.tries.length)placePin(state.tries[state.tries.length-1]);dogPose(document.getElementById("dogbig"),state.found?"happy":"sleep");dogPose(pin,state.found?"happy":"sleep");finish()}}
   else newGame(dayKey);
   if(document.fonts&&document.fonts.load)Promise.all([document.fonts.load("900 96px Unbounded"),document.fonts.load("800 40px Rubik"),document.fonts.load("500 40px Rubik")]).then(function(){if(state.done)drawCard()});
   addEventListener("resize",function(){if(state.tries.length&&!busy)placePin(state.tries[state.tries.length-1])});
