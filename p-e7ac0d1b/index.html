@@ -343,7 +343,7 @@
     x.font="500 40px Rubik, sans-serif";x.fillStyle="#1E1A18";wrap(x,c.line,W/2-8,1460,740,52);
     x.save();x.translate(W/2,1760);x.rotate(.04);rr(x,-370,-60,740,120,60);x.fillStyle="#1E1A18";x.fill();x.fillStyle="#fff";x.font="800 44px Rubik, sans-serif";x.textBaseline="middle";x.fillText("А ты кто? Найди свой трюфель",0,2);x.restore();
     var img=document.getElementById("cardImg"),im=new Image();
-    im.onload=function(){x.drawImage(im,W/2-215,600,430,328);img.src=cv.toDataURL("image/png")};
+    im.onload=function(){x.drawImage(im,W/2-190,605,380,290);img.src=cv.toDataURL("image/png")};
     im.onerror=function(){img.src=cv.toDataURL("image/png")};
     im.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(dogSVG(state.found?"happy":"sleep"));
   }
