@@ -4,233 +4,294 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#FFE14D">
 <title>Трюфельная собака</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oranienbaum&family=Marck+Script&family=Golos+Text:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Rubik:wght@500;700;800&display=swap">
 <style>
-  /* Намеренно одна светлая тема: легенда «Стардогс в Париже» запрещает тёмный и синий фон */
-  :root{
-    --milk:#FBF6EC; --sand:#EADCC1; --sand-2:#F3E9D6; --moss:#7C8552; --moss-2:#98A06A;
-    --bark:#4A3326; --bark-soft:#7A6150; --red:#C4443A; --warm:#E08A43; --cool:#D8C38F; --cold:#F1ECE2;
-    --display:"Oranienbaum","Times New Roman",serif;
-    --hand:"Marck Script","Segoe Script",cursive;
-    --body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
-    color-scheme:light;
-  }
+  /* Стиль «Стикерпак» — выбран голосованием 28.09. Одна светлая тема намеренно: это фирменный жёлтый Стардогс */
+  :root{--y:#FFE14D;--dot:#F2C300;--ink:#1E1A18;--red:#D8262D;--paper:#fff;--muted:#5B4B43;--truffle:#4A3326;color-scheme:light}
   [hidden]{display:none!important}
   *,*::before,*::after{box-sizing:border-box}
-  html,body{background:var(--milk);color:var(--bark);margin:0}
-  body{font-family:var(--body);font-size:15px;line-height:1.45;padding-inline:16px;padding-block:18px 32px}
-  .wrap{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-  header{display:flex;flex-direction:column;gap:2px}
-  .eyebrow{font-family:var(--hand);color:var(--red);font-size:22px;line-height:1}
-  h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
-  .date{font-size:13px;color:var(--bark-soft);letter-spacing:.06em;text-transform:uppercase}
-  .how{margin:0;color:var(--bark-soft);font-size:14px}
-  .bubble{background:#fff;border:1.5px solid var(--sand);border-radius:14px;padding:10px 14px;min-height:44px;display:flex;align-items:center;gap:10px;font-weight:500}
-  .bubble .fr{font-family:var(--hand);color:var(--red);font-size:20px;font-weight:400}
-  .forest{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:8px;background:var(--moss);border-radius:18px;aspect-ratio:1/1;max-width:100%;touch-action:manipulation}
-  .cell{appearance:none;border:0;border-radius:10px;cursor:pointer;background:var(--moss-2);position:relative;display:grid;place-items:center;font-size:18px;color:var(--bark);transition:background .25s,transform .12s;padding:0}
-  .cell::before{content:"";position:absolute;inset:18% 22%;border-radius:50% 50% 45% 45%;background:radial-gradient(circle at 35% 35%,#B5B780 0 30%,transparent 31%),radial-gradient(circle at 70% 60%,#8D955C 0 28%,transparent 29%),radial-gradient(circle at 40% 75%,#C9A45E 0 22%,transparent 23%);opacity:.9}
-  .cell:hover{transform:translateY(-1px)}
-  .cell:focus-visible{outline:3px solid var(--red);outline-offset:1px}
-  .cell[data-h]::before{display:none}
-  .cell[data-h="1"]{background:var(--red);color:#fff}
-  .cell[data-h="2"]{background:var(--warm);color:#fff}
-  .cell[data-h="3"]{background:var(--cool)}
-  .cell[data-h="4"]{background:var(--cold)}
-  .cell[data-h="0"]{background:var(--milk)}
-  .cell[data-h="0"].gold{background:#FFF1C9}
+  html,body{margin:0;background:var(--y);color:var(--ink)}
+  body{font:500 16px/1.35 Rubik,system-ui,sans-serif;background-image:radial-gradient(var(--dot) 1.5px,transparent 1.6px);background-size:14px 14px;padding:16px 16px 32px;min-height:100vh}
+  .wrap{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:14px;position:relative}
+  .tag{position:absolute;right:0;top:96px;background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:5px 12px;font:800 14px Rubik,sans-serif;transform:rotate(8deg);box-shadow:3px 3px 0 var(--ink)}
+  .eyebrow{font:800 13px Rubik,sans-serif;text-transform:uppercase;letter-spacing:.06em}
+  .logo{margin:0;font:900 30px/1 Unbounded,sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+  .logo span{display:inline-block;background:var(--red);color:#fff;padding:3px 12px 5px;border-radius:12px;transform:rotate(-3deg);border:3px solid var(--ink);margin-top:6px;box-shadow:4px 4px 0 var(--ink)}
+  .hero{display:flex;align-items:flex-end;gap:10px}
+  .dogbig{font-size:64px;line-height:1;flex:none;transform:rotate(-8deg);filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 3px 0 var(--ink))}
+  .dogbig.sniff{animation:sniff .5s ease-in-out 1}
+  .bubble{flex:1;background:var(--paper);border:3px solid var(--ink);border-radius:18px 18px 18px 4px;padding:10px 14px;font:800 16px/1.3 Rubik,sans-serif;box-shadow:4px 4px 0 var(--ink)}
+  .bubble small{display:block;font:500 14px/1.35 Rubik,sans-serif;color:var(--muted);margin-top:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:3px 9px;font:700 12.5px Rubik,sans-serif}
+  .chip.hot{background:var(--red);color:#fff}.chip.warm{background:var(--y)}
+  .board{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;background:var(--ink);padding:8px;border-radius:18px;touch-action:manipulation}
+  .cell{appearance:none;border:0;padding:0;aspect-ratio:1;border-radius:12px;background:var(--paper);font-size:22px;cursor:pointer;display:grid;place-items:center;transition:transform .12s,background .2s;color:var(--ink)}
+  .cell:hover:not(:disabled){transform:translateY(-2px)}
+  .cell:focus-visible{outline:3px solid var(--red);outline-offset:2px}
   .cell:disabled{cursor:default}
-  .dog{position:absolute;width:15%;aspect-ratio:1;display:grid;place-items:center;font-size:30px;pointer-events:none;transition:left .45s cubic-bezier(.4,1.4,.6,1),top .45s cubic-bezier(.4,1.4,.6,1);left:42.5%;top:42.5%;filter:drop-shadow(0 2px 2px rgba(58,42,33,.35))}
-  .dog.sniff{animation:sniff .5s ease-in-out 1}
-  @keyframes sniff{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg) translateY(2px)}50%{transform:rotate(10deg)}75%{transform:rotate(-6deg) translateY(2px)}}
-  @media (prefers-reduced-motion:reduce){.dog{transition:none}.dog.sniff{animation:none}}
-  .row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--bark-soft)}
-  .trail{font-size:20px;letter-spacing:2px;min-height:26px}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12.5px;color:var(--bark-soft)}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
-  .result{display:flex;flex-direction:column;gap:12px}
-  .result img{width:100%;border-radius:16px;border:1.5px solid var(--sand)}
-  .hint-save{font-size:12.5px;color:var(--bark-soft);margin:-4px 0 0;text-align:center}
-  .share{background:var(--sand-2);border-radius:12px;padding:12px 14px;white-space:pre-wrap;font-size:14px;margin:0;font-family:var(--body)}
-  .btns{display:flex;flex-wrap:wrap;gap:8px}
-  button.act{font:600 15px var(--body);border-radius:999px;padding:12px 18px;cursor:pointer;border:1.5px solid var(--bark);background:var(--bark);color:var(--milk);flex:1 1 auto}
-  button.act.ghost{background:transparent;color:var(--bark)}
-  button.act:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-  .promo{border:2px dashed var(--red);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;background:#fff}
-  .promo b{font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:.06em;color:var(--red)}
-  .promo small{color:var(--bark-soft)}
-  .demo{font-size:12.5px;color:var(--bark-soft);border-top:1px solid var(--sand);padding-top:12px}
-  footer{font-size:12.5px;color:var(--bark-soft);text-align:center}
-  footer i{font-family:var(--hand);font-style:normal;color:var(--red);font-size:17px}
+  .cell[data-h="1"]{background:var(--red)}
+  .cell[data-h="2"]{background:#FF9B3D}
+  .cell[data-h="3"]{background:var(--y)}
+  .cell[data-h="4"]{background:#CFE8FF}
+  .cell[data-h="0"]{background:var(--truffle)}
+  .cell[data-h="0"].gold{background:#FFD23F}
+  .pin{position:absolute;left:0;top:0;display:grid;place-items:center;font-size:24px;pointer-events:none;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+  .fx{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+  .p{position:absolute;left:0;top:0;font-size:22px;line-height:1;will-change:transform,opacity}
+  .p.dot{width:9px;height:9px;border-radius:50%}
+  .p.conf{width:10px;height:14px;border-radius:2px}
+  .dogbig{animation:wag 2.6s ease-in-out infinite}
+  @keyframes wag{0%,100%{rotate:0deg}50%{rotate:5deg}}
+  .dogbig.jump{animation:jump .7s cubic-bezier(.3,1.6,.5,1) 1}
+  @keyframes jump{0%{translate:0 0}40%{translate:0 -38px;rotate:-14deg}70%{translate:0 0;rotate:8deg}100%{translate:0 0;rotate:0deg}}
+  .dogbig.sleep{animation:none;rotate:-24deg;translate:0 10px;transition:rotate .6s,translate .6s}
+  .cell.flip{animation:flip .4s cubic-bezier(.3,1.5,.5,1) 1}
+  @keyframes flip{0%{transform:rotateY(90deg) scale(.8)}100%{transform:rotateY(0) scale(1)}}
+  .cell.invite{animation:bob .5s ease-out 1 both}
+  @keyframes bob{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  .bubble.pop{animation:pop .3s cubic-bezier(.3,1.6,.5,1) 1}
+  @keyframes pop{0%{transform:scale(.92)}100%{transform:scale(1)}}
+  .tag.pop{animation:tagpop .35s cubic-bezier(.3,1.8,.5,1) 1}
+  @keyframes tagpop{0%{scale:1.35}100%{scale:1}}
+  #result.show{animation:rise .6s cubic-bezier(.2,1.3,.4,1) 1}
+  @keyframes rise{0%{transform:translateY(60px);opacity:0}100%{transform:none;opacity:1}}
+  @keyframes sniff{0%,100%{rotate:0deg}25%{rotate:-14deg}50%{rotate:10deg}75%{rotate:-6deg}}
+  @media (prefers-reduced-motion:reduce){.dogbig,.dogbig.sniff,.dogbig.jump,.cell.flip,.cell.invite,.bubble.pop,.tag.pop,#result.show{animation:none}}
+  .trail{font-size:22px;letter-spacing:3px;min-height:28px;text-align:center}
+  .card{background:var(--paper);border:3px solid var(--ink);border-radius:20px;box-shadow:5px 5px 0 var(--ink);padding:14px;display:flex;flex-direction:column;gap:12px}
+  .card img{width:100%;border-radius:12px;border:2px solid var(--ink);display:block}
+  .hint{font-size:13px;color:var(--muted);text-align:center;margin:-4px 0 0}
+  .btn{display:block;width:100%;text-align:center;text-decoration:none;font:800 16px Rubik,sans-serif;border-radius:14px;padding:14px 16px;cursor:pointer;border:3px solid var(--ink);background:var(--red);color:#fff;box-shadow:4px 4px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.ghost{background:var(--paper);color:var(--ink)}
+  .btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .next{text-align:center;font:700 14px Rubik,sans-serif}
+  .test{font-size:13px;color:var(--muted);text-align:center}
+  .test button{font:700 13px Rubik,sans-serif;background:none;border:0;color:var(--ink);text-decoration:underline;cursor:pointer;padding:6px}
+  footer{text-align:center;font:700 13px Rubik,sans-serif;margin-top:4px}
 </style>
 </head>
 <body>
-
+<div class="fx" id="fx" aria-hidden="true"></div>
 <div class="wrap">
-  <header>
-    <span class="eyebrow">Стардогс в Париже</span>
-    <h1>Трюфельная собака</h1>
-    <span class="date" id="date"></span>
-  </header>
-  <p class="how">Во Франции трюфель ищут собаки — по запаху. Сегодня в лесу спрятан один трюфель, для всех один и тот же. Нажимай на лес: собака понюхает и скажет, горячо или холодно. У тебя 8 нюхов.</p>
+  <span class="tag" id="tag">6 нюхов</span>
+  <span class="eyebrow">Стардогс в Париже · <span id="date"></span></span>
+  <h1 class="logo">Трюфельная<br><span>собака</span></h1>
 
-  <div class="bubble" id="bubble" aria-live="polite"><span class="fr">Bonjour!</span><span>Куда пойдём нюхать?</span></div>
-
-  <div class="forest" id="forest" role="grid" aria-label="Лес, 6 на 6 участков">
-    <div class="dog" id="dog" aria-hidden="true">🐕</div>
+  <div class="hero">
+    <div class="dogbig" id="dogbig" aria-hidden="true">🐕</div>
+    <div class="bubble" id="bubble" aria-live="polite"></div>
   </div>
 
-  <div class="row"><span class="trail" id="trail" aria-label="Ход игры"></span><span id="left">Нюхов: 8</span></div>
-  <div class="legend">
-    <span><i class="sw" style="background:var(--red)"></i>🔥 горячо — рядом</span>
-    <span><i class="sw" style="background:var(--warm)"></i>🌡 тепло</span>
-    <span><i class="sw" style="background:var(--cool)"></i>🍂 прохладно</span>
-    <span><i class="sw" style="background:var(--cold);border:1px solid var(--sand)"></i>❄️ холодно</span>
+  <div class="chips" aria-label="Подсказки">
+    <span class="chip hot">🔥 горит</span><span class="chip" style="background:#FF9B3D">🌡 тепло</span><span class="chip warm">🍂 мимо</span><span class="chip" style="background:#CFE8FF">❄️ холодно</span>
   </div>
 
-  <section class="result" id="result" hidden>
-    <img id="cardImg" alt="Карточка результата">
-    <p class="hint-save">Карточку можно сохранить долгим нажатием и выложить в историю</p>
-    <pre class="share" id="shareText"></pre>
-    <div class="btns">
-      <button class="act" id="copyBtn" type="button">Скопировать и отправить другу</button>
+  <div class="board" id="board" role="grid" aria-label="Поле 5 на 5">
+    <div class="pin" id="pin" aria-hidden="true" hidden>🐕</div>
+  </div>
+
+  <div class="trail" id="trail" aria-label="Ход игры"></div>
+
+  <section id="result" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div class="card">
+      <img id="cardImg" alt="Карточка результата">
+      <p class="hint">Зажми картинку, чтобы сохранить и кинуть в сторис</p>
+      <button class="btn" id="shareBtn" type="button">Кинуть другу — пусть попробует быстрее</button>
     </div>
-    <div class="promo">
-      <small>Подарок за найденный трюфель</small>
-      <b id="promoCode"></b>
-      <small>Покажи код на кассе Стардогс вместе с заказом трюфельного хот-дога или рулле</small>
-    </div>
+    <p class="next" id="next"></p>
+    <a class="btn ghost" id="vkBtn" href="https://vk.com/stardogsrussia" target="_blank" rel="noopener">Подписаться на Стардогс в VK</a>
   </section>
 
-  <div class="demo">
-    <b>Прототип.</b> В настоящей игре — одна партия в день, а промокод настоящий. Здесь код демонстрационный, а кнопка ниже прячет трюфель заново, чтобы можно было играть сколько угодно.
-    <div class="btns" style="margin-top:10px"><button class="act ghost" id="againBtn" type="button">Спрятать трюфель заново (демо)</button></div>
-  </div>
+  <div class="test" id="testBox" hidden>Тестовый режим · <button type="button" id="againBtn">спрятать трюфель заново</button></div>
 
-  <footer><i>Voilà</i> · трюфель в хот-доге, рулле и бургере — до 15 мая</footer>
+  <footer>Трюфельное меню — уже в Стардогс 🥐</footer>
 </div>
 
 <script>
 (function(){
-  var N=6, MAX=8;
+  // Яндекс Метрика: вписать номер счётчика — начнут считаться цели start / found / lost / share / vk
+  var METRIKA_ID=null;
+
+  var N=5, MAX=6;
   var HEAT=[null,
-    {e:"🔥",fr:"Ouh là là!",t:"Совсем рядом! Нос дрожит"},
-    {e:"🌡",fr:"Tiens…",t:"Пахнет Перигором. Тепло"},
-    {e:"🍂",fr:"Bof.",t:"Прохладно. Тут в основном листья"},
-    {e:"❄️",fr:"Non, non.",t:"Холодно. Пахнет только осенью"}];
+    {e:"🔥",t:"ГОРИТ! Он прям рядом",s:"Нос в шоке. Жми по соседству"},
+    {e:"🌡",t:"Тепло. Чую вайб трюфеля",s:"Ещё пара клеток"},
+    {e:"🍂",t:"Мимо. Тут одни листья",s:"Уходи в другую сторону"},
+    {e:"❄️",t:"Холодно. Даже не близко",s:"Трюфель где-то на другом краю"}];
   var CARDS=[
-    {max:1,name:"Легенда Перигора",line:"С первого нюха. Охотники за трюфелем пишут о тебе мемуары"},
-    {max:3,name:"Такса-гурман",line:"Нос как у сомелье — трюфель не успел спрятаться"},
-    {max:5,name:"Пудель с Монмартра",line:"Не спешишь, любуешься листвой. И всё равно нашёл(ла)"},
-    {max:8,name:"Бульдог-философ",line:"Долго думал(а), но дошёл(ла). Трюфель ищут терпением"}];
-  var LOST={name:"Сонный бассет",line:"Сегодня трюфель оказался хитрее. Завтра спрячем новый"};
+    {max:1,name:"Легенда Перигора",e:"👑",line:"С первого нюха. Это читы или талант?"},
+    {max:2,name:"Такса-сомелье",e:"🍷",line:"Нос уровня бог. Трюфель даже не успел спрятаться"},
+    {max:4,name:"Пудель с Монмартра",e:"🥐",line:"Чилл, круассан, трюфель. Всё по вайбу"},
+    {max:6,name:"Бульдог-философ",e:"🧐",line:"Долго, но стабильно. Терпение — тоже флекс"}];
+  var LOST={name:"Сонный бассет",e:"😴",line:"Сегодня трюфель затащил. Завтра реванш"};
   var MONTHS=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
 
-  var forest=document.getElementById("forest"), dog=document.getElementById("dog"), bubble=document.getElementById("bubble");
-  var trailEl=document.getElementById("trail"), leftEl=document.getElementById("left");
+  var qs=new URLSearchParams(location.search), TEST=qs.get("test")==="1";
+  var board=document.getElementById("board"), pin=document.getElementById("pin"), bubble=document.getElementById("bubble");
   var now=new Date(), dayKey=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
-  document.getElementById("date").textContent=now.getDate()+" "+MONTHS[now.getMonth()]+" · трюфель дня";
+  var dateStr=now.getDate()+" "+MONTHS[now.getMonth()];
+  document.getElementById("date").textContent=dateStr;
+  document.getElementById("testBox").hidden=!TEST;
+
+  function goal(g){try{if(METRIKA_ID&&window.ym)ym(METRIKA_ID,"reachGoal",g)}catch(e){}}
+  if(METRIKA_ID){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(METRIKA_ID,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,params:{ref:qs.get("ref")||"direct"}})}
 
   function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
-  var state;
-  function newGame(seed){
-    var h=hash(seed);
-    state={target:h%(N*N),gold:(Math.floor(h/97)%6)===0,tries:[],done:false,found:false};
-    render();
-  }
+  function say(t,s){bubble.innerHTML="";bubble.append(document.createTextNode(t));if(s){var m=document.createElement("small");m.textContent=s;bubble.append(m)}}
+  function word(n){var m=n%10,h=n%100;if(m===1&&h!==11)return "нюх";if(m>=2&&m<=4&&(h<12||h>14))return "нюха";return "нюхов"}
+
   var cells=[];
   for(var i=0;i<N*N;i++){
     var b=document.createElement("button");b.className="cell";b.type="button";
-    b.setAttribute("aria-label","Участок "+(Math.floor(i/N)+1)+"-"+(i%N+1));
+    b.setAttribute("aria-label","Клетка "+(Math.floor(i/N)+1)+"-"+(i%N+1));
     (function(idx){b.addEventListener("click",function(){sniff(idx)})})(i);
-    forest.insertBefore(b,dog);cells.push(b);
+    board.insertBefore(b,pin);cells.push(b);
   }
-  function heat(idx){
-    var d=Math.max(Math.abs(Math.floor(idx/N)-Math.floor(state.target/N)),Math.abs(idx%N-state.target%N));
-    return d===0?0:Math.min(d,4);
+
+  var state;
+  function newGame(seed){var h=hash(seed);state={target:h%(N*N),gold:(Math.floor(h/97)%6)===0,tries:[],done:false,found:false};render()}
+  function heat(idx){var d=Math.max(Math.abs(Math.floor(idx/N)-Math.floor(state.target/N)),Math.abs(idx%N-state.target%N));return d===0?0:Math.min(d,4)}
+  function mark(idx){var h=heat(idx);return h===0?(state.gold?"🌟":"🟤"):HEAT[h].e}
+  function trail(){return state.tries.map(mark).join("")}
+  var RM=matchMedia("(prefers-reduced-motion: reduce)").matches, busy=false, pinAt=null, fx=document.getElementById("fx");
+  function retrig(el,c){el.classList.remove(c);void el.offsetWidth;el.classList.add(c)}
+  function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function mid(el){var r=el.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]}
+  function part(ch,cls,color){var e=document.createElement("span");e.className="p"+(cls?" "+cls:"");if(ch)e.textContent=ch;if(color)e.style.background=color;fx.appendChild(e);return e}
+  // Взрыв частиц из клетки: ch — эмодзи или null (тогда цветные точки/конфетти)
+  function burst(el,chars,n,power,cls,colors){
+    if(RM)return;var c=mid(el);
+    for(var i=0;i<n;i++){
+      var a=rnd(0,Math.PI*2),v=rnd(.4,1)*power,dx=Math.cos(a)*v,dy=Math.sin(a)*v-power*.5,e=part(chars?chars[i%chars.length]:"",cls,colors?colors[i%colors.length]:null),r=rnd(-200,200);
+      e.animate([{transform:"translate("+c[0]+"px,"+c[1]+"px) scale(.3)",opacity:1},{transform:"translate("+(c[0]+dx)+"px,"+(c[1]+dy)+"px) scale(1) rotate("+r/2+"deg)",opacity:1,offset:.45},{transform:"translate("+(c[0]+dx*1.3)+"px,"+(c[1]+dy+power*1.2)+"px) scale(.7) rotate("+r+"deg)",opacity:0}],{duration:rnd(800,1300),easing:"cubic-bezier(.2,.7,.4,1)"}).onfinish=function(){this.effect.target.remove()};
+    }
   }
-  function moveDog(idx){
-    dog.style.left=(idx%N)*(100/N)+(100/N-15)/2+"%";
-    dog.style.top=Math.floor(idx/N)*(100/N)+(100/N-15)/2+"%";
-    dog.classList.remove("sniff");void dog.offsetWidth;dog.classList.add("sniff");
+  // Дождь сверху: листья, снег, конфетти
+  function rain(chars,n,cls,colors){
+    if(RM)return;
+    for(var i=0;i<n;i++){
+      var x=rnd(0,innerWidth),e=part(chars?chars[i%chars.length]:"",cls,colors?colors[i%colors.length]:null),sway=rnd(-60,60);
+      e.animate([{transform:"translate("+x+"px,-40px) rotate(0)",opacity:1},{transform:"translate("+(x+sway)+"px,"+innerHeight*.55+"px) rotate("+rnd(-180,180)+"deg)",opacity:1,offset:.7},{transform:"translate("+(x+sway*1.4)+"px,"+innerHeight*.8+"px) rotate("+rnd(-360,360)+"deg)",opacity:0}],{duration:rnd(1600,2600),delay:rnd(0,500),easing:"ease-in",fill:"backwards"}).onfinish=function(){this.effect.target.remove()};
+    }
   }
-  function say(fr,t){bubble.innerHTML="";var a=document.createElement("span");a.className="fr";a.textContent=fr;var c=document.createElement("span");c.textContent=t;bubble.append(a,c)}
+  function shake(el,amp){if(RM)return;el.animate([{transform:"translate(0,0)"},{transform:"translate("+amp+"px,-"+amp/2+"px)"},{transform:"translate(-"+amp+"px,"+amp/2+"px)"},{transform:"translate("+amp/2+"px,0)"},{transform:"translate(0,0)"}],{duration:320,iterations:1})}
+  function spot(idx){var c=cells[idx],w=c.offsetWidth*.62;return {w:w,x:c.offsetLeft+c.offsetWidth-w*.75,y:c.offsetTop-w*.35}}
+  function placePin(idx){var t=spot(idx);pin.hidden=false;pin.style.width=pin.style.height=t.w+"px";pin.style.fontSize=t.w*.8+"px";pin.style.transform="translate("+t.x+"px,"+t.y+"px)";pinAt=t}
+  // Собака прыгает дугой к клетке и роет
+  function hop(idx,cb){
+    var fired=false,done=function(){if(!fired){fired=true;cb()}};setTimeout(done,1600);
+    var t=spot(idx);pin.hidden=false;pin.style.width=pin.style.height=t.w+"px";pin.style.fontSize=t.w*.8+"px";
+    var f=pinAt||{x:board.offsetWidth/2-t.w/2,y:-t.w,w:t.w},flip=t.x>f.x?" scaleX(-1)":"";
+    var tr=function(x,y,extra){return "translate("+x+"px,"+y+"px)"+flip+(extra||"")};
+    pinAt=t;
+    if(RM){pin.style.transform=tr(t.x,t.y);done();return}
+    var lift=Math.max(40,Math.hypot(t.x-f.x,t.y-f.y)*.35);
+    pin.animate([{transform:tr(f.x,f.y)},{transform:tr((f.x+t.x)/2,Math.min(f.y,t.y)-lift," rotate(-12deg)"),offset:.5},{transform:tr(t.x,t.y," scale(1.15,.85)"),offset:.85},{transform:tr(t.x,t.y)}],{duration:520,easing:"ease-in-out",fill:"forwards"}).onfinish=function(){
+      if(fired)return;pin.style.transform=tr(t.x,t.y);
+      burst(cells[idx],null,12,55,"dot",["#6B4A2F","#8A6440","#4A3326"]);
+      pin.animate([{transform:tr(t.x,t.y)},{transform:tr(t.x,t.y+6," rotate(-10deg)")},{transform:tr(t.x,t.y," rotate(8deg)")},{transform:tr(t.x,t.y+6," rotate(-8deg)")},{transform:tr(t.x,t.y)}],{duration:380}).onfinish=done;
+    };
+  }
   function sniff(idx){
-    if(state.done||state.tries.indexOf(idx)>=0)return;
-    state.tries.push(idx);moveDog(idx);
-    var h=heat(idx);
-    if(h===0){state.done=true;state.found=true;say("Voilà!",state.gold?"Золотой трюфель! Такой попадается раз в несколько дней":"Трюфель найден!")}
-    else if(state.tries.length>=MAX){state.done=true;say("Hélas…","Нюхи кончились. Трюфель был вот здесь")}
-    else say(HEAT[h].fr,HEAT[h].t);
-    render();save();
-    if(state.done)setTimeout(finish,500);
-  }
-  function trailString(){
-    return state.tries.map(function(i){var h=heat(i);return h===0?(state.gold?"🌟":"🟤"):HEAT[h].e}).join("");
+    if(busy||state.done||state.tries.indexOf(idx)>=0)return;
+    if(!state.tries.length)goal("start");
+    busy=true;state.tries.push(idx);
+    var h=heat(idx),big=document.getElementById("dogbig");
+    if(h===0){state.done=true;state.found=true}else if(state.tries.length>=MAX)state.done=true;
+    save();
+    say("*нюх-нюх*","");retrig(big,"sniff");
+    hop(idx,function(){
+      render();retrig(cells[idx],"flip");retrig(document.getElementById("tag"),"pop");retrig(bubble,"pop");
+      if(h===0){
+        goal("found");say(state.gold?"ЗОЛОТОЙ ТРЮФЕЛЬ 🌟":"ВУАЛЯ! Трюфель твой 🟤",state.gold?"Такой выпадает раз в несколько дней. Легенда":"Нашёл(ла) за "+state.tries.length+" "+word(state.tries.length));
+        big.classList.remove("sniff");retrig(big,"jump");buzz([60,40,120]);
+        burst(cells[idx],state.gold?["🌟","✨","🟤"]:["🟤","✨","🥐","🎉"],28,140);
+        burst(cells[idx],null,40,170,"conf",["#D8262D","#FFE14D","#1E1A18","#fff","#2B3E8F"]);
+        rain(null,50,"conf",["#D8262D","#FFE14D","#1E1A18","#2B3E8F"]);
+      }else{
+        say(state.done?"Нюхи всё 😵":HEAT[h].t,state.done?"Трюфель был вот тут. Завтра спрячем новый":HEAT[h].s);
+        if(h===1){shake(board,7);burst(cells[idx],["🔥","✨","🔥"],14,90);buzz([40,30,40]);retrig(big,"jump")}
+        else if(h===2){burst(cells[idx],["✨","🌡"],8,60);buzz(20)}
+        else if(h===3)rain(["🍂","🍁"],10);
+        else{rain(["❄️"],14);shake(board,3)}
+        if(state.done){goal("lost");setTimeout(function(){big.classList.remove("jump","sniff");big.classList.add("sleep");retrig(cells[state.target],"flip")},500)}
+      }
+      busy=false;
+      if(state.done)setTimeout(finish,h===0?1100:900);
+    });
   }
   function render(){
     cells.forEach(function(c,i){
       var tried=state.tries.indexOf(i)>=0, reveal=state.done&&i===state.target;
-      if(tried||reveal){var h=heat(i);c.dataset.h=h;c.textContent=h===0?(state.gold?"🌟":"🟤"):HEAT[h].e}
-      else{delete c.dataset.h;c.textContent=""}
-      c.classList.toggle("gold",state.gold&&reveal);
-      c.disabled=state.done;
+      if(tried||reveal){c.dataset.h=heat(i);c.textContent=mark(i)}else{delete c.dataset.h;c.textContent=""}
+      c.classList.toggle("gold",state.gold&&reveal);c.disabled=state.done;
     });
-    trailEl.textContent=trailString();
-    leftEl.textContent="Нюхов: "+(MAX-state.tries.length);
-    if(!state.tries.length){dog.style.left="42.5%";dog.style.top="42.5%";say("Bonjour!","Куда пойдём нюхать?")}
+    var left=MAX-state.tries.length;
+    document.getElementById("tag").textContent=state.done?(state.found?"найден!":"0 нюхов"):left+" "+word(left);
+    document.getElementById("trail").textContent=trail();
+    if(!state.tries.length){pin.hidden=true;pinAt=null;document.getElementById("dogbig").classList.remove("sleep","jump","sniff");say("Во Франции трюфель ищут собаки. Сегодня собака — ты 🐕","Один трюфель на всех, 6 нюхов. Найдёшь быстрее друзей — флексишь весь день 😎")}
     document.getElementById("result").hidden=!state.done;
   }
-  function card(){
-    if(!state.found)return LOST;
-    var n=state.tries.length;for(var i=0;i<CARDS.length;i++)if(n<=CARDS[i].max)return CARDS[i];
-    return CARDS[CARDS.length-1];
-  }
-  function word(n){var m=n%10,h=n%100;if(m===1&&h!==11)return "нюх";if(m>=2&&m<=4&&(h<12||h>14))return "нюха";return "нюхов"}
+  function card(){if(!state.found)return LOST;var n=state.tries.length;for(var i=0;i<CARDS.length;i++)if(n<=CARDS[i].max)return CARDS[i];return CARDS[CARDS.length-1]}
+  function head(){var n=state.tries.length;return state.found?("Нашёл(ла) трюфель за "+n+" "+word(n)+(state.gold?" — и он золотой!":"")):"Сегодня трюфель не нашёлся"}
+  function shareUrl(){return location.origin+location.pathname+"?ref=share"}
+  function shareText(){var c=card();return "🐕 Трюфельная собака · "+dateStr+"\n"+trail()+"\n"+head()+". Я — "+c.name+" "+c.e+"\nСможешь быстрее?"}
   function finish(){
-    var c=card(), n=state.tries.length;
-    var head=state.found?("Трюфель найден за "+n+" "+word(n)+(state.gold?" — и он золотой!":"")):"Сегодня трюфель не нашёлся";
-    var text="Трюфельная собака · "+now.getDate()+" "+MONTHS[now.getMonth()]+"\n"+trailString()+"\n"+head+"\nЯ — "+c.name+". А ты кто?\n(здесь будет ссылка на игру)";
-    document.getElementById("shareText").textContent=text;
-    document.getElementById("promoCode").textContent=state.found?"ТРЮФЕЛЬ-"+(1000+hash(dayKey+n)%9000)+" · демо":"Завтра новый шанс";
-    drawCard(c,head);
+    drawCard();var res=document.getElementById("result");retrig(res,"show");if(!RM&&busy===false&&res.getBoundingClientRect().top>innerHeight*.7)setTimeout(function(){res.scrollIntoView({behavior:"smooth",block:"start"})},300);
+    var t=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1), ms=t-new Date(), h=Math.floor(ms/3600000), m=Math.floor(ms%3600000/60000);
+    document.getElementById("next").textContent="Новый трюфель через "+h+" ч "+m+" мин";
   }
-  function wrapText(ctx,t,x,y,w,lh){var words=t.split(" "),line="";for(var i=0;i<words.length;i++){var test=line+words[i]+" ";if(ctx.measureText(test).width>w&&line){ctx.fillText(line.trim(),x,y);line=words[i]+" ";y+=lh}else line=test}ctx.fillText(line.trim(),x,y);return y}
-  function drawCard(c,head){
-    var W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
-    x.fillStyle="#FBF6EC";x.fillRect(0,0,W,H);
-    x.fillStyle="#7C8552";x.beginPath();if(x.roundRect)x.roundRect(80,560,W-160,760,48);else x.rect(80,560,W-160,760);x.fill();
-    for(var k=0;k<60;k++){var hx=hash("leaf"+k);x.fillStyle=["#98A06A","#B5B780","#C9A45E","#E08A43"][hx%4];x.beginPath();x.ellipse(120+hx%840,600+(hx>>>8)%680,14+hx%18,9+hx%10,(hx%31)/10,0,7);x.fill()}
-    x.textAlign="center";
-    x.fillStyle="#C4443A";x.font="64px 'Marck Script', cursive";x.fillText("Стардогс в Париже",W/2,200);
-    x.fillStyle="#4A3326";x.font="104px Oranienbaum, serif";x.fillText("Трюфельная собака",W/2,320);
-    x.fillStyle="#7A6150";x.font="500 40px 'Golos Text', sans-serif";x.fillText(now.getDate()+" "+MONTHS[now.getMonth()]+" · трюфель дня",W/2,400);
-    x.font="190px serif";x.fillText(state.found?(state.gold?"🌟":"🟤"):"🍂",W/2,900);
-    x.font="150px serif";x.fillText("🐕",W/2,1150);
-    x.font="72px serif";x.fillText(trailString(),W/2,1260);
-    x.fillStyle="#4A3326";x.font="600 46px 'Golos Text', sans-serif";wrapText(x,head,W/2,1440,W-200,58);
-    x.fillStyle="#7A6150";x.font="500 38px 'Golos Text', sans-serif";x.fillText("Я —",W/2,1560);
-    x.fillStyle="#C4443A";x.font="104px Oranienbaum, serif";x.fillText(c.name,W/2,1670);
-    x.fillStyle="#4A3326";x.font="400 38px 'Golos Text', sans-serif";wrapText(x,c.line,W/2,1750,W-220,50);
-    x.fillStyle="#7A6150";x.font="500 34px 'Golos Text', sans-serif";x.fillText("А ты кто? Найди свой трюфель",W/2,1870);
+  function rr(x,X,Y,W,H,R){x.beginPath();if(x.roundRect)x.roundRect(X,Y,W,H,R);else x.rect(X,Y,W,H)}
+  function wrap(x,t,X,Y,w,lh){var ws=t.split(" "),l="";for(var i=0;i<ws.length;i++){var s=l+ws[i]+" ";if(x.measureText(s).width>w&&l){x.fillText(l.trim(),X,Y);l=ws[i]+" ";Y+=lh}else l=s}x.fillText(l.trim(),X,Y);return Y}
+  function sticker(x,ch,X,Y,size,rot){
+    x.save();x.translate(X,Y);x.rotate(rot);x.font=size+"px serif";x.textAlign="center";x.textBaseline="middle";
+    x.fillStyle="#1E1A18";x.fillText(ch,10,10);
+    x.fillStyle="#fff";for(var a=0;a<16;a++){x.fillText(ch,Math.cos(a/16*6.283)*10,Math.sin(a/16*6.283)*10)}
+    x.fillText(ch,0,0);x.restore();
+  }
+  function drawCard(){
+    var c=card(),W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
+    x.fillStyle="#FFE14D";x.fillRect(0,0,W,H);
+    x.fillStyle="#F2C300";for(var yy=20;yy<H;yy+=40)for(var xx=20;xx<W;xx+=40){x.beginPath();x.arc(xx,yy,4,0,7);x.fill()}
+    x.textAlign="left";x.fillStyle="#1E1A18";x.font="800 40px Rubik, sans-serif";x.fillText("СТАРДОГС В ПАРИЖЕ · "+dateStr.toUpperCase(),90,150);
+    x.font="900 96px Unbounded, sans-serif";x.fillText("ТРЮФЕЛЬНАЯ",90,280);
+    x.font="900 96px Unbounded, sans-serif";var pw=x.measureText("СОБАКА").width+72;x.save();x.translate(90,310);x.rotate(-.05);rr(x,8,8,pw,140,30);x.fillStyle="#1E1A18";x.fill();rr(x,0,0,pw,140,30);x.fillStyle="#D8262D";x.fill();x.lineWidth=8;x.strokeStyle="#1E1A18";x.stroke();
+    x.fillStyle="#fff";x.font="900 96px Unbounded, sans-serif";x.fillText("СОБАКА",36,108);x.restore();
+    rr(x,106,586,868,1060,48);x.fillStyle="#1E1A18";x.fill();rr(x,90,570,868,1060,48);x.fillStyle="#fff";x.fill();x.lineWidth=8;x.stroke();
+    sticker(x,state.found?(state.gold?"🌟":"🐕"):"😴",W/2-20,770,190,-.12);
+    x.textAlign="center";x.font="72px serif";x.fillStyle="#1E1A18";x.fillText(trail(),W/2-8,970);
+    x.font="700 44px Rubik, sans-serif";x.fillStyle="#5B4B43";wrap(x,head(),W/2-8,1060,760,56);
+    x.font="800 40px Rubik, sans-serif";x.fillStyle="#1E1A18";x.fillText("Я —",W/2-8,1180);
+    var fs=72;do{x.font="900 "+fs+"px Unbounded, sans-serif";fs-=2}while(x.measureText(c.name).width>760&&fs>30);x.fillStyle="#D8262D";x.fillText(c.name,W/2-8,1270);x.font="80px serif";x.fillText(c.e,W/2-8,1360);
+    x.font="500 40px Rubik, sans-serif";x.fillStyle="#1E1A18";wrap(x,c.line,W/2-8,1460,740,52);
+    x.save();x.translate(W/2,1760);x.rotate(.04);rr(x,-370,-60,740,120,60);x.fillStyle="#1E1A18";x.fill();x.fillStyle="#fff";x.font="800 44px Rubik, sans-serif";x.textBaseline="middle";x.fillText("А ты кто? Найди свой трюфель",0,2);x.restore();
     document.getElementById("cardImg").src=cv.toDataURL("image/png");
   }
-  document.getElementById("copyBtn").addEventListener("click",function(){
-    var t=document.getElementById("shareText").textContent, btn=this;
-    function ok(){btn.textContent="Скопировано — вставь в чат другу";setTimeout(function(){btn.textContent="Скопировать и отправить другу"},2500)}
-    function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById("shareText"));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Текст выделен — скопируй его"}
-    try{navigator.clipboard.writeText(t).then(ok,fallback)}catch(e){fallback()}
+  document.getElementById("shareBtn").addEventListener("click",function(){
+    var btn=this,t=shareText(),u=shareUrl();goal("share");
+    if(navigator.share){navigator.share({text:t,url:u}).catch(function(){});return}
+    function ok(){btn.textContent="Скопировано — вставь другу в чат";setTimeout(function(){btn.textContent="Кинуть другу — пусть попробует быстрее"},2500)}
+    try{navigator.clipboard.writeText(t+"\n"+u).then(ok,function(){prompt("Скопируй и отправь другу:",t+" "+u)})}catch(e){prompt("Скопируй и отправь другу:",t+" "+u)}
   });
-  document.getElementById("againBtn").addEventListener("click",function(){newGame("demo"+Math.random());try{localStorage.removeItem("td-"+dayKey)}catch(e){}});
-  function save(){try{localStorage.setItem("td-"+dayKey,JSON.stringify(state))}catch(e){}}
-  var saved=null;try{saved=JSON.parse(localStorage.getItem("td-"+dayKey))}catch(e){}
-  if(saved&&saved.tries){state=saved;render();if(state.done){if(state.tries.length)moveDog(state.tries[state.tries.length-1]);finish()}}
+  document.getElementById("vkBtn").addEventListener("click",function(){goal("vk")});
+  document.getElementById("againBtn").addEventListener("click",function(){try{localStorage.removeItem("td-"+dayKey)}catch(e){}newGame("test"+Math.random())});
+  function save(){if(TEST)return;try{localStorage.setItem("td-"+dayKey,JSON.stringify(state))}catch(e){}}
+  var saved=null;if(!TEST){try{saved=JSON.parse(localStorage.getItem("td-"+dayKey))}catch(e){}}
+  if(saved&&saved.tries){state=saved;render();if(state.tries.length&&!state.done){placePin(state.tries[state.tries.length-1]);say("С возвращением 🐕","Нюхай дальше — трюфель ещё тут")}if(state.done){say(state.found?"Сегодняшний трюфель уже твой 🟤":"Сегодня уже нюхали 😴","Возвращайся завтра — спрячем новый");if(state.tries.length)placePin(state.tries[state.tries.length-1]);if(!state.found)document.getElementById("dogbig").classList.add("sleep");finish()}}
   else newGame(dayKey);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(state.done)finish()});
+  if(document.fonts&&document.fonts.load)Promise.all([document.fonts.load("900 96px Unbounded"),document.fonts.load("800 40px Rubik"),document.fonts.load("500 40px Rubik")]).then(function(){if(state.done)drawCard()});
+  addEventListener("resize",function(){if(state.tries.length&&!busy)placePin(state.tries[state.tries.length-1])});
+  // приглашающая «волна» по клеткам + фиксированная высота облачка, чтобы поле не прыгало под пальцем
+  if(!state.tries.length&&!RM)cells.forEach(function(c,i){c.style.animationDelay=(Math.floor(i/N)+i%N)*45+"ms";c.classList.add("invite");c.addEventListener("animationend",function(){c.classList.remove("invite");c.style.animationDelay=""},{once:true})});
+  function fixBubble(){if(!state.tries.length){bubble.style.minHeight="";bubble.style.minHeight=bubble.offsetHeight+"px"}}
+  fixBubble();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fixBubble);
 })();
 </script>
 </body>
