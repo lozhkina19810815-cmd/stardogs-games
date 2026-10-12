@@ -26,7 +26,7 @@
   .challenge{background:var(--red);color:#fff;border:3px solid var(--ink);border-radius:16px;padding:10px 14px;font:800 16px/1.3 Rubik,sans-serif;box-shadow:4px 4px 0 var(--ink);transform:rotate(-1.5deg)}
   .challenge small{display:block;font:600 13.5px/1.3 Rubik,sans-serif;opacity:.9;margin-top:2px}
   .hero{display:flex;align-items:flex-end;gap:10px}
-  .dogbig{width:124px;flex:none;margin-bottom:-4px;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 3px 0 var(--ink))}
+  .dogbig{width:100px;flex:none;margin-bottom:-4px;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(3px 3px 0 var(--ink))}
   .bubble{flex:1;background:var(--paper);border:3px solid var(--ink);border-radius:18px 18px 18px 4px;padding:10px 14px;font:800 16px/1.3 Rubik,sans-serif;box-shadow:4px 4px 0 var(--ink)}
   .bubble small{display:block;font:500 14px/1.35 Rubik,sans-serif;color:var(--muted);margin-top:4px}
   .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -182,7 +182,7 @@
     <div class="panel">
       <img id="cardImg" alt="Карточка результата">
       <p class="hint">Зажми картинку, чтобы сохранить и кинуть в сторис</p>
-      <input class="name" id="nameIn" maxlength="20" autocomplete="given-name" placeholder="Твоё имя для вызова (необязательно)" aria-label="Имя для вызова другу">
+      <input class="name" id="nameIn" maxlength="20" autocomplete="given-name" placeholder="Твоё имя для вызова" aria-label="Имя для вызова другу">
       <button class="btn" id="shareBtn" type="button">Бросить вызов другу</button>
     </div>
     <div class="panel">
@@ -240,7 +240,7 @@
   function dogPose(el,pose){var s=el.querySelector("svg");if(s)s.setAttribute("class","dogsvg "+pose)}
 
   // Яндекс Метрика: вписать номер счётчика — начнут считаться цели start / found / lost / share / vk / challenge
-  var METRIKA_ID=null;
+  var METRIKA_ID=56275189;
 
   // Сложность подобрана симуляцией 28.09: поле 7×7, 5 нюхов, шаги без диагоналей — внимательный игрок проигрывает ~8%, обычный ~30%
   var N=7, MAX=5;
@@ -267,8 +267,8 @@
   document.getElementById("date").textContent=dateStr;
   document.getElementById("testBox").hidden=!TEST;
 
-  function goal(g){try{if(METRIKA_ID&&window.ym)ym(METRIKA_ID,"reachGoal",g)}catch(e){}}
-  if(METRIKA_ID){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(METRIKA_ID,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,params:{ref:qs.get("ref")||"direct"}})}
+  function goal(g){try{if(METRIKA_ID&&window.ym){ym(METRIKA_ID,"reachGoal","td_"+g);ym(METRIKA_ID,"params",{sobaka:g})}}catch(e){}}
+  if(METRIKA_ID&&!window.ym){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(METRIKA_ID,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,params:{ref:qs.get("ref")||"direct"}})}
 
   function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
   function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
@@ -451,7 +451,7 @@
   function shareText(s){var c=card();return "🐕 Трюфельная собака · "+dateStr+"\n"+trail()+"\n"+head()+". Я — "+c.name+" "+c.e+(s.streak>1?"\n🔥 Серия: "+s.streak+" дн. подряд":"")+"\nСможешь быстрее?"}
   var lastStats=null;
   function finish(){
-    lastStats=paintStats();drawCard(lastStats);
+    bubble.style.minHeight="";lastStats=paintStats();drawCard(lastStats);
     var vs=document.getElementById("vs");
     if(ch&&ch.today){
       var me=state.found?state.tries.length:null,t;
@@ -464,7 +464,7 @@
     var res=document.getElementById("result");retrig(res,"show");
     if(!RM&&res.getBoundingClientRect().top>innerHeight*.7)setTimeout(function(){res.scrollIntoView({behavior:"smooth",block:"start"})},300);
     var t=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1),ms=t-new Date(),hh=Math.floor(ms/3600000),mm=Math.floor(ms%3600000/60000);
-    document.getElementById("next").textContent="Новый трюфель через "+hh+" ч "+mm+" мин. Не пропусти — серия сгорит";
+    document.getElementById("next").textContent="Новый трюфель через "+hh+" ч "+mm+" мин."+((lastStats&&lastStats.streak)?" Не пропусти — серия сгорит":"");
   }
   function rr(x,X,Y,W,H,R){x.beginPath();if(x.roundRect)x.roundRect(X,Y,W,H,R);else x.rect(X,Y,W,H)}
   function wrap(x,t,X,Y,w,lh){var ws=t.split(" "),l="";for(var i=0;i<ws.length;i++){var s=l+ws[i]+" ";if(x.measureText(s).width>w&&l){x.fillText(l.trim(),X,Y);l=ws[i]+" ";Y+=lh}else l=s}x.fillText(l.trim(),X,Y);return Y}
@@ -512,7 +512,9 @@
   // приглашающая «волна» по клеткам + фиксированная высота облачка, чтобы поле не прыгало под пальцем
   if(!state.tries.length&&!RM)cells.forEach(function(c,i){c.style.animationDelay=(Math.floor(i/N)+i%N)*35+"ms";c.classList.add("invite");c.addEventListener("animationend",function(){c.classList.remove("invite");c.style.animationDelay=""},{once:true})});
   function fixBubble(){if(!state.tries.length){bubble.style.minHeight="";bubble.style.minHeight=bubble.offsetHeight+"px"}}
-  fixBubble();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fixBubble);
+  // пересчёт и при смене ширины: на Tilda блок раскладывается позже скрипта, иначе облачко запоминает высоту узкой раскладки
+  fixBubble();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fixBubble);addEventListener("load",fixBubble);
+  var bw=bubble.offsetWidth;if(window.ResizeObserver)new ResizeObserver(function(){if(bubble.offsetWidth!==bw){bw=bubble.offsetWidth;fixBubble()}}).observe(bubble);
 })();
 </script>
 </body>
